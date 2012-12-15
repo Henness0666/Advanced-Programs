@@ -1,0 +1,330 @@
+-- Advanced Ore Finder by Henness
+-- Version 1.1 12/6/2012
+
+-- Config
+Version = "v1.1"
+local Width
+local Length
+local Depth
+local Ignore
+
+-- Functions
+function version() -- Version function
+	return Version
+end
+
+function regwrite(string, columnVar, rowVar) -- Write a string to the cords
+	term.setCursorPos( columnVar, rowVar )
+	write (string)
+end
+
+function clearscreen() -- Clearscreen function
+	term.clear()
+	regwrite( "AP Ore Finder", 15, 1 )
+	regwrite( version(), 2, 13 )
+	regwrite( "Designed by Henness", 20, 13 )
+	term.setCursorPos( 1, 3 )
+end
+
+function refuel(stop) -- Refuels the turtle
+	returnXF = (Width - x) * 2
+	if math.fmod( VarX , 2 ) == 0 then
+		returnYF = (Length - (Length - y) - 1) * 2
+	else
+		returnYF = (Length - y) * 2
+	end
+	if turtle.getFuelLevel() < ((Depth * 2) + returnXF + returnYF + 5) and turtle.getItemCount(16) > 1 then
+		turtle.select(16)
+		turtle.refuel(turtle.getItemCount(16) - 1)
+	end
+	if stop == true then
+		turtle.select(16)
+		repeat
+			turtle.refuel(turtle.getItemCount(16) - 1)
+			sleep(0.1)
+		until turtle.getFuelLevel() > ((Depth * 2) + returnXF + returnYF + 5)
+	end
+	if turtle.getFuelLevel() < ((Depth * 2) + returnXF + returnYF + 5) and stop ~= true then
+		returnToStart(true)
+	end
+end
+
+function empty() -- Emptys the turtles inventory
+	if turtle.getItemCount(15) > 0 then
+		returnToStart()
+	end
+end
+
+function returnToStart(stop) -- Returns to start
+	returnX = Width - x
+	if math.fmod( VarX , 2 ) == 0 then
+		returnY = Length - (Length - y) - 1
+		turnRight()
+	else
+		returnY = Length - y
+		turnLeft()
+	end
+	moveForward(returnX)
+	turnLeft()
+	moveForward(returnY)
+	if stop == true then
+		clearscreen()
+		print("Too low on fuel to continue. Please insert more fuel.")
+		refuel(true)
+	end
+	for i=Ignore+1,15,1 do
+		turtle.select(i)
+		turtle.drop()
+	end
+	turnLeft(2)
+	moveForward(returnY)
+	turnRight()
+	moveForward(returnX)
+	if math.fmod( VarX , 2 ) == 0 then
+		turnRight()
+	else
+		turnLeft()
+	end
+end
+
+function moveUp(distance) -- Moves Up
+	if distance == nil then
+		distance = 1
+	end
+	for i=1,distance,1 do
+		repeat
+			if turtle.up() == true then
+				moved = true
+			else
+				digUp()
+				turtle.attackUp()
+				moved = false
+			end
+		until moved == true
+	end
+end
+
+function moveForward(distance) -- Moves Forward
+	if distance == nil then
+		distance = 1
+	end
+	for i=1,distance,1 do
+		repeat
+			if turtle.forward() == true then
+				moved = true
+			else
+				digForward()
+				turtle.attack()
+				moved = false
+			end
+		until moved == true
+	end
+end
+
+function moveDown(distance) -- Moves Down
+	if distance == nil then
+		distance = 1
+	end
+	for i=1,distance,1 do
+		repeat
+			if turtle.down() == true then
+				moved = true
+			else
+				digDown()
+				turtle.attackDown()
+				moved = false
+			end
+		until moved == true
+	end
+end
+
+function turnLeft(a) -- Turns Left
+	if not a then a = 1 end
+	for i=1,math.abs(a),1 do
+		turtle.turnLeft()
+	end
+	return true
+end
+
+function turnRight(a) -- Turns Right
+	if not a then a = 1 end
+	for i=1,math.abs(a),1 do
+		turtle.turnRight()
+	end
+	return true
+end
+
+function digForward(Compare) -- Digs Forward
+	if turtle.detect() then
+		if Compare then
+			SlotVar = Ignore
+			Ore = true
+			for i=1,SlotVar,1 do
+				turtle.select(i)
+				if turtle.compare() == true then
+					Ore = false
+				end				
+			end
+			if Ore == true then
+				turtle.dig()
+			end
+		else
+			turtle.dig()
+		end
+	end
+end
+
+function digDown(Compare) -- Digs Down
+	if turtle.detectDown() then
+		if Compare then
+			SlotVar = Ignore
+			Ore = true
+			for i=1,SlotVar,1 do
+				turtle.select(i)
+				if turtle.compareDown() == true then
+					Ore = false
+				end				
+			end
+			if Ore == true then
+				turtle.digDown()
+			end
+		else
+			turtle.digDown()
+		end
+	end
+end
+
+function digUp(Compare) -- Digs Down
+	if turtle.detectUp() then
+		if Compare then
+			SlotVar = Ignore
+			Ore = true
+			for i=1,SlotVar,1 do
+				turtle.select(i)
+				if turtle.compareUp() == true then
+					Ore = false
+				end				
+			end
+			if Ore == true then
+				turtle.digUp()
+			end
+		else
+			turtle.digUp()
+		end
+	end
+end
+
+function compareSides(n) -- Compares surounding blocks with items in the inventory
+	for i=1,n,1 do
+		digForward(true)
+		turnRight()
+	end
+end
+
+function findDown(z) -- Finds all ores bellow the turtle
+	refuel()
+	empty()
+	for i=1,z,1 do
+		digDown(true)
+		if turtle.detectDown() then
+			digDown(false)
+		end
+		moveDown()
+		compareSides(4)
+	end
+	for i=1,z,1 do
+		moveUp()
+	end
+end
+
+function runFinder( W , L , D )
+	VarY = 5
+	VarX = 1
+	
+	x = W
+	y = L
+	while x > 0 do
+		y = L
+		while VarY <= 5 and y > 1 do
+			if VarY == 5 then
+				findDown(D)
+				VarY = 0
+			end
+			digForward(true)
+			if turtle.detect() then
+				digForward(false)
+			end
+			moveForward()
+			VarY = VarY + 1
+			y = y - 1
+		end
+		if VarY == 5 then
+			findDown(D)
+			VarY = 0
+		end
+		if x > 1 then
+			if math.fmod( VarX , 2 ) == 0 then
+				turnLeft()
+				digForward(true)
+				if turtle.detect() then
+					digForward(false)
+				end
+				moveForward()
+				turnLeft()
+				if VarY == 0 then
+					VarY = 3
+				elseif VarY == 1 then
+					VarY = 2
+				elseif VarY == 2 then
+					VarY = 1
+				elseif VarY == 3 then
+					VarY = 5
+				elseif VarY == 4 then
+					VarY = 4
+				end
+			else
+				turnRight()
+				digForward(true)
+				if turtle.detect() then
+					digForward(false)
+				end
+				moveForward()
+				turnRight()
+				if VarY == 0 then
+					VarY = 2
+				elseif VarY == 1 then
+					VarY = 1
+				elseif VarY == 2 then
+					VarY = 5
+				elseif VarY == 3 then
+					VarY = 4
+				elseif VarY == 4 then
+					VarY = 3
+				end
+			end
+			VarX = VarX + 1
+		end
+		x = x - 1
+	end
+end
+
+-- RUN
+clearscreen()
+print("Width of Area?")
+Width = tonumber(read())
+
+clearscreen()
+print("Length of Area?")
+Length = tonumber(read())
+
+clearscreen()
+print("Depth of Holes?")
+Depth = tonumber(read())
+
+clearscreen()
+print("How many materials will be Ignored?")
+Ignore = tonumber(read())
+
+clearscreen()
+print("Finding Ore...")
+runFinder( Width , Length , Depth )
