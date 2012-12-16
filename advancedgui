@@ -39,9 +39,10 @@ function printLeft(str, ypos)
 end
 
 function drawHeader()
+	local author = "[by Henness]"
 	printCentered("Advanced Program's", 1)
 	printCentered(string.rep("-", screenw), 2) 
-	printRight("by Henness", screenh)
+	printRight(string.rep("-", screenw-#author)..author, screenh)
 end
 
 function drawMain()
@@ -60,16 +61,6 @@ end
 function drawOreFinder()
 	term.clear()
 	drawHeader()
-	local oreFinderList = {
-		"+---------------+---------------+---------------+",
-		"|               |               |               |",
-		"|               |               |               |",
-		"| Size: 000x000 | Size: 000x000 | Size: 000x000 |",
-		"| Time:  00:00  | Time:  00:00  | Time:  00:00  |",
-		"|               |               |               |",
-		"+---------------+---------------+---------------+"
-	}
-	
 	if fs.exists("ofpreset") then
 		preset = loadTable("ofpreset")
 	else
@@ -86,56 +77,50 @@ function drawOreFinder()
 		}
 		saveTable(preset, "ofpreset")
 	end
-	for i=1,#oreFinderList do
-		printCentered(oreFinderList[i], 6 + i)
-		if i == 2 or i == 6 then
-			if select == 3 then
-				printCentered("| ------------- |               |               |", 6 + i)
-			elseif select == 4 then
-				printCentered("|               | ------------- |               |", 6 + i)
-			elseif select == 5 then
-				printCentered("|               |               | ------------- |", 6 + i)
-			end
-		elseif i == 3 then
-			local namea = preset[1].values[5]
-			local nameb = preset[2].values[5]
-			local namec = preset[3].values[5]
-			printCentered("| " .. namea .. string.rep(" ", 14-#namea) .. "| " .. nameb .. string.rep(" ", 14-#nameb) .. "| " .. namec .. string.rep(" ", 14-#namec) .. "|", 6 + i)
-		elseif i == 4 then
-			local widtha = preset[1].values[1]
-			local lengtha = preset[1].values[2]
-			local widthb = preset[2].values[1]
-			local lengthb = preset[2].values[2]
-			local widthc = preset[3].values[1]
-			local lengthc = preset[3].values[2]
-			printCentered(
-				"| Size: " .. string.rep("0", 3-#widtha) .. widtha .. "x" .. string.rep("0", 3-#lengtha) .. lengtha .. " " ..
-				"| Size: " .. string.rep("0", 3-#widthb) .. widthb .. "x" .. string.rep("0", 3-#lengthb) .. lengthb .. " " ..
-				"| Size: " .. string.rep("0", 3-#widthc) .. widthc .. "x" .. string.rep("0", 3-#lengthc) .. lengthc .. " |"
-				, 6 + i
-			)
-		elseif i == 5 then
-			local hoursa = preset[1].values[3]
-			local minutesa = preset[1].values[4]
-			local hoursb = preset[2].values[3]
-			local minutesb = preset[2].values[4]
-			local hoursc = preset[3].values[3]
-			local minutesc = preset[3].values[4]
-			printCentered(
-				"| Time:  " .. string.rep("0", 2-#hoursa) .. hoursa .. ":" .. string.rep("0", 2-#minutesa) .. minutesa .. "  " ..
-				"| Time:  " .. string.rep("0", 2-#hoursb) .. hoursb .. ":" .. string.rep("0", 2-#minutesb) .. minutesb .. "  " ..
-				"| Time:  " .. string.rep("0", 2-#hoursc) .. hoursc .. ":" .. string.rep("0", 2-#minutesc) .. minutesc .. "  |"
-				, 6 + i
-			)
-		end
-	end
+
+	local namea = preset[1].values[5]
+	local nameb = preset[2].values[5]
+	local namec = preset[3].values[5]
 	printLeft("  Continue", 4)
 	printLeft("  New", 5)
+	printLeft("  "..namea, 7)
+	printLeft("  "..nameb, 8)
+	printLeft("  "..namec, 9)
 	printLeft("  Back", screenh-1)
+	for i=1,sreenh-3 do
+		printRight("|"..string.rep(" ", 21), i+2)
+	end
 	if select == 1 then
 		printLeft(">", 4)
 	elseif select == 2 then
 		printLeft(">", 5)
+	elseif select == 3 then
+		local width = preset[1].values[1]
+		local length = preset[1].values[2]
+		local hours = preset[1].values[3]
+		local minutes = preset[1].values[4]
+		printLeft(">", 7)
+		printRight("| "..namea..string.rep(" ", 20-#namea), 4)
+		printRight("| Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 7), 6)
+		printRight("| Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 8), 7)
+	elseif select == 4 then
+		local width = preset[2].values[1]
+		local length = preset[2].values[2]
+		local hours = preset[2].values[3]
+		local minutes = preset[2].values[4]
+		printLeft(">", 8)
+		printRight("| "..nameb..string.rep(" ", 20-#nameb), 4)
+		printRight("| Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 7), 6)
+		printRight("| Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 8), 7)
+	elseif select == 5 then
+		local width = preset[3].values[1]
+		local length = preset[3].values[2]
+		local hours = preset[3].values[3]
+		local minutes = preset[3].values[4]
+		printLeft(">", 9)
+		printRight("| "..namec..string.rep(" ", 20-#namec), 4)
+		printRight("| Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 7), 6)
+		printRight("| Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 8), 7)
 	elseif select == 6 then
 		printLeft(">", screenh-1)
 	end
