@@ -1,5 +1,10 @@
+-- Advanced GUI by Henness
+-- Version 1.0 12/16/2012
+
+-- Config
 screenw,screenh = term.getSize()
 
+-- Functions
 function saveTable(table,name)
 	local file = fs.open(name,"w")
 	file.write(textutils.serialize(table))
@@ -344,24 +349,24 @@ function gui()
 					saveTable = loadTable("ofsave")
 					-- Continue OreFinder with save file
 				end
-			else
-				if mopt[menustate].options[select] == "orefinderrun" then
-					-- Run OreFinder with Length and Width
-				elseif mopt[menustate].options[select] == "orefinderpreset" then
-					drawOreFinder()
-					if select == 3 then
-						presetstate = 1
-						presetname = "one"
-					elseif select == 4 then
-						presetstate = 2
-						presetname = "two"
-					elseif select == 5 then
-						presetstate = 3
-						presetname = "three"
-					end
+			elseif mopt[menustate].options[select] == "orefinderrun" then
+				-- Run OreFinder with Length and Width
+			elseif mopt[menustate].options[select] == "tunnel" then
+				shell.run("advancedtunnel")
+			elseif mopt[menustate].options[select] == "orefinderpreset" then
+				drawOreFinder()
+				if select == 3 then
+					presetstate = 1
+					presetname = "one"
+				elseif select == 4 then
+					presetstate = 2
+					presetname = "two"
+				elseif select == 5 then
+					presetstate = 3
+					presetname = "three"
 				end
-				menustate = mopt[menustate].options[select]
 			end
+			menustate = mopt[menustate].options[select]
 			select = 1
 		end
 	end
@@ -369,4 +374,5 @@ function gui()
 	term.setCursorPos(1,1)
 end
 
+-- RUN
 gui()
