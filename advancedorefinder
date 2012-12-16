@@ -236,7 +236,7 @@ function moveToPos(A, B, C, face)
 	b=B-y
 	c=C-z
 	if b<0 then
-		for i=1,math.abs(b),1
+		for i=1,math.abs(b) do
 			moved=down()
 			if not moved and turtle.detectDown() then
 				repeat
@@ -249,7 +249,7 @@ function moveToPos(A, B, C, face)
 			end
 		end
 	elseif b>0 then
-		for i=1,math.abs(b),1
+		for i=1,math.abs(b) do
 			moved=up()
 			if not moved and turtle.detectUp() then
 				repeat
@@ -268,7 +268,7 @@ function moveToPos(A, B, C, face)
 		face()
 	end
 	if a ~= 0 then
-		for i=1,math.abs(a),1
+		for i=1,math.abs(a) do
 			moved=forward()
 			if not moved and turtle.detect() then
 				repeat
@@ -287,7 +287,7 @@ function moveToPos(A, B, C, face)
 		face()
 	end
 	if c ~= 0 then
-		for i=1,math.abs(c),1
+		for i=1,math.abs(c) do
 			moved=forward()
 			if not moved and turtle.detect() then
 				repeat
