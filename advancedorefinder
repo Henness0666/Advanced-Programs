@@ -61,7 +61,7 @@ function turnRight(a)
 	end
 	for i=1,math.abs(a),1 do
 		turtle.turnRight()
-		if face=3 then
+		if face==3 then
 			face=0
 		else
 			face=face+1
