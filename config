@@ -1,1 +1,1 @@
-{["advancedgui"]={["name"]="advancedgui",["path"]="advancedgui",["version"]=1,},["advancedtunnel"]={["name"]="advancedtunnel",["path"]="advancedtunnel",["version"]=1,},["advancedorefinder"]={["name"]="advancedguiorefinder",["path"]="advancedorefinder",["version"]=1,},["programs"]=3,}
+{["advancedgui"]={["path"]="advancedgui",["version"]=1,},["advancedtunnel"]={["path"]="advancedtunnel",["version"]=1,},["advancedorefinder"]={["path"]="advancedorefinder",["version"]=1,},}
