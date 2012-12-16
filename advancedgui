@@ -87,7 +87,7 @@ function drawOreFinder()
 	printLeft("  "..nameb, 8)
 	printLeft("  "..namec, 9)
 	printLeft("  Back", screenh-1)
-	for i=1,sreenh-3 do
+	for i=1,screenh-3 do
 		printRight("|"..string.rep(" ", 21), i+2)
 	end
 	if select == 1 then
