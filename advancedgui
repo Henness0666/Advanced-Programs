@@ -327,27 +327,13 @@ function gui()
 		local id, key = os.pullEvent("key")
 		-- DOWN = 208 UP = 200 LEFT = 203 RIGHT = 205 ENTER = 28
 		if key == 200 and select > 1 then
-			if menustate == "orefinder" and select == 6 then
-				select = select-3
-			elseif menustate == "orefinder" and select == 5 then
-				select = select-3
-			elseif menustate == "orefinder" and select == 4 then
-				select = select-2
-			else
-				select = select-1
-			end
+			select = select-1
 		elseif key == 208 and select < #mopt[menustate].options then
-			if menustate == "orefinder" and select == 3 then
-				select = select+3
-			elseif menustate == "orefinder" and select == 4 then
-				select = select+2
-			else
-				select = select+1
-			end
+			select = select+1
 		elseif key == 203 and select > 1 then
-				select = select-1
+			select = select-1
 		elseif key == 205 and select < #mopt[menustate].options then
-				select = select+1
+			select = select+1
 		elseif key == 28 then
 			if mopt[menustate].options[select] == "exit" then
 				break
