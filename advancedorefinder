@@ -301,11 +301,6 @@ function moveToPos(A, B, C, face)
 		end
 	end
 	face(face)
-	if x,y,z == A,B,C then
-		return true
-	else
-		return false
-	end
 end
 
 function checkReturn()
