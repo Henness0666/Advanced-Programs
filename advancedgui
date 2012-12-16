@@ -1,3 +1,5 @@
+screenw,screenh = term.getSize()
+
 function saveTable(table,name)
 	local file = fs.open(name,"w")
 	file.write(textutils.serialize(table))
@@ -47,11 +49,11 @@ function drawMain()
 	drawHeader()
 	printLeft("  OreFinder", 4)
 	printLeft("  Tunnel", 5)
-	printLeft("  Exit", screenh-2)
+	printLeft("  Exit", screenh-1)
 
 	local ypos = 4
 	if select == 2 then ypos = 5
-	elseif select == 3 then ypos = screenh-2 end
+	elseif select == 3 then ypos = screenh-1 end
 	printLeft(">", ypos)
 end
 
@@ -303,7 +305,6 @@ function gui()
 	term.clear()
 	select = 1
 	menustate = "main"
-	screenw,screenh = term.getSize()
 	mopt = {
 		["main"] = {
 			options = {"orefinder", "tunnel", "exit"},
