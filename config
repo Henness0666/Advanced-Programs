@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 {["advancedgui"]={["path"]="advancedgui",["version"]=2,},["advancedtunnel"]={["path"]="advancedtunnel",["version"]=1,},["advancedorefinder"]={["path"]="advancedorefinder",["version"]=1,},}
-=======
-{["advancedgui"]={["path"]="advancedgui",["version"]=1,},["advancedtunnel"]={["path"]="advancedtunnel",["version"]=1,},["advancedorefinder"]={["path"]="advancedorefinder",["version"]=1,},}
->>>>>>> 5356e12358a39eb30d3e0e08b4b4cd24071bb2bd
