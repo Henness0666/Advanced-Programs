@@ -339,7 +339,7 @@ function oreFinder()
 			checkReturn()
 			returnPosx=ofsave["returnPos"]["x"]
 			returnPosz=ofsave["returnPos"]["z"]
-			if math.fmod((returnPosx+4)-2(returnPosz-1), 5) == 0 then
+			if math.fmod((ofsave["returnPos"]["x"]+4)-2*(ofsave["returnPos"]["z"]-1), 5) == 0 then
 				findDown()
 				moveToPos(ofsave["returnPos"]["x"], ofsave["returnPos"]["y"], ofsave["returnPos"]["z"], ofsave["returnPos"]["face"])
 			end
