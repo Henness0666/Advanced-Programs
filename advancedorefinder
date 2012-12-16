@@ -331,10 +331,10 @@ end
 function oreFinder()
 	l=ofsave["l"]
 	L=ofsave["L"]
-	for l,L do
+	for l=l,L do
 		w=ofsave["w"]
 		W=ofsave["W"]
-		for w,W do
+		for w=w,W do
 			ofsave = {["returnPos"] = {["x"] = x, ["y"] = y, ["z"] = z, ["face"] = face}, ["l"] = l, ["w"] = w, ["L"] = L, ["W"] = W}
 			checkReturn()
 			if math.fmod((ofsave["returnPos"]["x"]+4)-2(ofsave["returnPos"]["z"]-1), 5) == 0 then
