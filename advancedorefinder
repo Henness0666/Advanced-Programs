@@ -137,7 +137,7 @@ function forward(n) -- Moves the turtle forward "n" distance
 			moved=turtle.forward()
 			if moved then
 				z=z+1
-				save(0
+				save()
 			else
 				break
 			end
