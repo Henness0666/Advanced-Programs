@@ -1,38 +1,3 @@
-screenw,screenh = term.getSize()
-
-mopt = {
-	["main"] = {
-		options = {"orefinder", "tunnel", "exit"},
-		draw = drawMain
-	},
-	["orefinder"] = {
-		options = {"orefindercontinue", "orefindernew", "orefinderpreset", "orefinderpreset", "orefinderpreset", "main"},
-		draw = drawOreFinder
-	},
-	["orefindercontinue"] = {
-		options = {"orefinderrun", "orefinder"},
-		draw = drawOreFinderContinue
-	},
-	["orefindernofile"] = {
-		options = {"orefinder"},
-		draw = drawOreFinderNoFile
-	},
-	["orefindernew"] = {
-		draw = drawOreFinderNew
-	},
-	["orefinderpreset"] = {
-		options = {"orefinderstart", "orefinder", "orefinderedit"},
-		draw = drawOreFinderPreset
-	},
-	["orefinderstart"] = {
-		options = {"orefinderrun", "orefinder"},
-		draw = drawOreFinderStart
-	},
-	["orefinderedit"] = {
-		draw = drawOreFinderEdit
-	}
-}
-
 function saveTable(table,name)
 	local file = fs.open(name,"w")
 	file.write(textutils.serialize(table))
@@ -338,6 +303,39 @@ function gui()
 	term.clear()
 	select = 1
 	menustate = "main"
+	screenw,screenh = term.getSize()
+	mopt = {
+		["main"] = {
+			options = {"orefinder", "tunnel", "exit"},
+			draw = drawMain
+		},
+		["orefinder"] = {
+			options = {"orefindercontinue", "orefindernew", "orefinderpreset", "orefinderpreset", "orefinderpreset", "main"},
+			draw = drawOreFinder
+		},
+		["orefindercontinue"] = {
+			options = {"orefinderrun", "orefinder"},
+			draw = drawOreFinderContinue
+		},
+		["orefindernofile"] = {
+			options = {"orefinder"},
+			draw = drawOreFinderNoFile
+		},
+		["orefindernew"] = {
+			draw = drawOreFinderNew
+		},
+		["orefinderpreset"] = {
+			options = {"orefinderstart", "orefinder", "orefinderedit"},
+			draw = drawOreFinderPreset
+		},
+		["orefinderstart"] = {
+			options = {"orefinderrun", "orefinder"},
+			draw = drawOreFinderStart
+		},
+		["orefinderedit"] = {
+			draw = drawOreFinderEdit
+		}
+	}
 	while true do
 		mopt[menustate].draw()
 		local id, key = os.pullEvent("key")
