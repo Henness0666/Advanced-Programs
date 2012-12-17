@@ -416,6 +416,8 @@ function oreFinder()
 		end
 		saveTable(ofsave, "ofsave")
 	end
+	returnStart()
+	setFace(faceF)
 	fs.delete(ofsave)
 end
 
