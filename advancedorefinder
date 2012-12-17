@@ -380,13 +380,13 @@ function runOreFinder(width, length, ignore)
 	if width and length then
 		local ofsave = {
 			["startPos"] = {
-				["x"] = x, ["y"] = y, ["z"] = z, ["face"] = face
+				x = x, y = y, z = z, face = face
 			},
 			["currentPos"] = {
-				["x"] = x, ["y"] = y, ["z"] = y, ["face"] = face
+				x = x, y = y, z = z, face = face
 			},
 			["returnPos"] = {
-				["x"] = x, ["y"] = y, ["z"] = z, ["face"] = face
+				x = x, y = y, z = z, face = face
 			},
 			["ignore"] = ignore,
 			["forward"] = false,
