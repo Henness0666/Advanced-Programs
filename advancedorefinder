@@ -308,7 +308,7 @@ function moveToPos(A, B, C, Face)
 end
 
 function checkReturn()
-	if turtle.getFuelLevel() < 2 * y + ofsave["width"] + ofsave["length"] then
+	if turtle.getFuelLevel() < 2 * y + ofsave["length"] + ofsave["width"] then
 		returnStart()
 		for i=ignore+2,16,1 do
 			turtle.select(i)
@@ -320,7 +320,7 @@ function checkReturn()
 				turtle.refuel(1)
 			end
 			sleep(0.1)
-		until turtle.getFuelLevel() > 2 * y + ofsave["width"] + ofsave["length"]
+		until turtle.getFuelLevel() > 2 * y + ofsave["length"] + ofsave["width"]
 		returnLast()
 	elseif turtle.getItemCount(16) > 0 then
 		returnStart()
@@ -333,8 +333,8 @@ function checkReturn()
 end
 
 function oreFinder()
-	while ofsave["l"] <= ofsave["length"] do
-		while ofsave["w"] <= ofsave["width"] do
+	while ofsave["w"] <= ofsave["width"] do
+		while ofsave["l"] <= ofsave["length"] do
 			ofsave["returnPos"]["x"] = x
 			ofsave["returnPos"]["z"] = z
 			ofsave["returnPos"]["face"] = face
@@ -349,7 +349,7 @@ function oreFinder()
 				findDown()
 				returnLast()
 			end
-			if ofsave["w"] == ofsave["width"] then
+			if ofsave["l"] == ofsave["length"] then
 				if face == faceF then
 					turnRight()
 					ofsave["right"] = true
@@ -389,8 +389,8 @@ function oreFinder()
 				turnLeft()
 				ofsave["left"] = false
 			end
-			local w = ofsave["w"] + 1
-			ofsave["w"] = w
+			local l = ofsave["l"] + 1
+			ofsave["l"] = l
 			ofsave["returnPos"]["x"] = x
 			ofsave["returnPos"]["z"] = z
 			ofsave["returnPos"]["face"] = face
@@ -400,9 +400,9 @@ function oreFinder()
 			end
 			saveTable(ofsave, "ofsave")
 		end
-		local l = ofsave["l"] + 1
-		ofsave["l"] = l
-		ofsave["w"] = 1
+		local w = ofsave["w"] + 1
+		ofsave["w"] = w
+		ofsave["l"] = 1
 		if fs.exists("ofsave") then
 			fs.delete("ofsave")
 		end
@@ -431,10 +431,10 @@ function runOreFinder(width, length, ignore)
 			["forward"] = false,
 			["left"] = false,
 			["right"] = false,
-			["width"] = width,
 			["length"] = length,
-			["w"] = 1,
-			["l"] = 1
+			["width"] = width,
+			["l"] = 1,
+			["w"] = 1
 		}
 		if fs.exists("ofsave") then
 			fs.delete("ofsave")
