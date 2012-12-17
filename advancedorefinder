@@ -408,7 +408,8 @@ function runOreFinder(width, length, ignore)
 	else 
 		local faceB = faceF-2
 	end
-	parallel.waitForAny(orefinder, skip)
+	--parallel.waitForAny(orefinder, skip)
+	orefinder()
 end
 
 local tArgs = { ... }
