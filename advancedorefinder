@@ -231,7 +231,7 @@ function findDown(n) -- Finds all ores bellow the turtle for "n" distance
 	end
 end
 
-function moveToPos(A, B, C, face)
+function moveToPos(A, B, C, direction)
 	a=A-x
 	b=B-y
 	c=C-z
@@ -288,7 +288,7 @@ function moveToPos(A, B, C, face)
 			end
 		end
 	end
-	face(face)
+	face(direction)
 end
 
 function checkReturn()
