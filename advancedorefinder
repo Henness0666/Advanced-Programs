@@ -308,7 +308,7 @@ function moveToPos(A, B, C, Face)
 end
 
 function checkReturn()
-	if turtle.getFuelLevel() < 2 * y + ofsave["W"] + ofsave["L"] then
+	if turtle.getFuelLevel() < 2 * y + ofsave["width"] + ofsave["length"] then
 		returnStart()
 		for i=ignore+2,16,1 do
 			turtle.select(i)
@@ -320,7 +320,7 @@ function checkReturn()
 				turtle.refuel(1)
 			end
 			sleep(0.1)
-		until turtle.getFuelLevel() > 2 * y + ofsave["W"] + ofsave["L"]
+		until turtle.getFuelLevel() > 2 * y + ofsave["width"] + ofsave["length"]
 		returnLast()
 	elseif turtle.getItemCount(16) > 0 then
 		returnStart()
@@ -333,8 +333,8 @@ function checkReturn()
 end
 
 function oreFinder()
-	while ofsave["l"] <= ofsave["L"] do
-		while ofsave["w"] <= ofsave["W"] do
+	while ofsave["l"] <= ofsave["length"] do
+		while ofsave["w"] <= ofsave["width"] do
 			ofsave["returnPos"]["x"] = x
 			ofsave["returnPos"]["z"] = z
 			ofsave["returnPos"]["face"] = face
@@ -349,7 +349,7 @@ function oreFinder()
 				findDown()
 				returnLast()
 			end
-			if ofsave["w"] == ofsave["W"] then
+			if ofsave["w"] == ofsave["width"] then
 				if face == faceF then
 					turnRight()
 					ofsave["right"] = true
@@ -431,8 +431,8 @@ function runOreFinder(width, length, ignore)
 			["forward"] = false,
 			["left"] = false,
 			["right"] = false,
-			["W"] = width,
-			["L"] = length,
+			["width"] = width,
+			["length"] = length,
 			["w"] = 1,
 			["l"] = 1
 		}
@@ -447,6 +447,7 @@ function runOreFinder(width, length, ignore)
 		z = ofsave["currentPos"]["z"]
 		face = ofsave["currentPos"]["face"]
 		ignore = ofsave["ignore"]
+		setFace(ofsave["returnPos"]["face"])
 	end
 	local faceF = ofsave["startPos"]["face"]
 	if faceF<=1 then
