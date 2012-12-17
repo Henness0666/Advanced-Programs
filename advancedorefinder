@@ -400,8 +400,7 @@ function oreFinder()
 			end
 			saveTable(ofsave, "ofsave")
 		end
-		l = l + 1
-		ofsave["l"] = l
+		ofsave["l"] = ofsave["l"] + 1
 		ofsave["w"] = 1
 		if fs.exists("ofsave") then
 			fs.delete("ofsave")
