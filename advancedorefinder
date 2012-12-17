@@ -78,7 +78,7 @@ function turnRight(a)
 	return true
 end
 
-function face(a)
+function setFace(a)
 	local turn = face-a
 	local done = false
 	if face == a then
@@ -251,7 +251,7 @@ function returnStart()
 	moveToPos(startPosx, startPosy, startPosz, faceB)
 end
 
-function moveToPos(A, B, C, direction)
+function moveToPos(A, B, C, Face)
 	a=A-x
 	b=B-y
 	c=C-z
@@ -277,9 +277,9 @@ function moveToPos(A, B, C, direction)
 		end
 	end
 	if a<0 then
-		face(3)
+		setFace(3)
 	elseif a>0 then
-		face(1)
+		setFace(1)
 	end
 	if a ~= 0 then
 		for i=1,math.abs(a) do
@@ -293,9 +293,9 @@ function moveToPos(A, B, C, direction)
 		end
 	end
 	if c<0 then
-		face(2)
+		setFace(2)
 	elseif c>0 then
-		face(0)
+		setFace(0)
 	end
 	if c ~= 0 then
 		for i=1,math.abs(c) do
@@ -308,7 +308,7 @@ function moveToPos(A, B, C, direction)
 			end
 		end
 	end
-	face(direction)
+	setFace(Face)
 end
 
 function checkReturn()
