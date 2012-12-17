@@ -32,15 +32,14 @@ function loadTable(name)
 end
 
 function save()
-	ofsave = {
-		["currentPos"] = {
-			["x"] = x, ["y"] = y, ["z"] = y, ["face"] = face
-		},
-		["W"] = width,
-		["L"] = length,
-		["w"] = w,
-		["l"] = l
-	}
+	ofsave["w"] = w
+	ofsave["l"] = l
+	ofsave["W"] = width
+	ofsave["L"] = length
+	ofsave["currentPos"]["x"] = x
+	ofsave["currentPos"]["y"] = y
+	ofsave["currentPos"]["z"] = z
+	ofsave["currentPos"]["face"] = face
 	if fs.exists("ofsave") then
 		fs.delete("ofsave")
 	end
@@ -238,17 +237,17 @@ function findDown(n) -- Finds all ores bellow the turtle for "n" distance
 end
 
 function returnLast()
-	returnPosx = ofsave["returnPos"]["x"]
-	returnPosy = ofsave["returnPos"]["y"]
-	returnPosz = ofsave["returnPos"]["z"]
-	returnPosface = ofsave["returnPos"]["face"]
+	local returnPosx = ofsave["returnPos"]["x"]
+	local returnPosy = ofsave["returnPos"]["y"]
+	local returnPosz = ofsave["returnPos"]["z"]
+	local returnPosface = ofsave["returnPos"]["face"]
 	moveToPos(returnPosx, returnPosy, returnPosz, returnPosface)
 end
 
 function returnStart()
-	startPosx = ofsave["startPos"]["x"]
-	startPosy = ofsave["startPos"]["y"]
-	startPosz = ofsave["startPos"]["z"]
+	local startPosx = ofsave["startPos"]["x"]
+	local startPosy = ofsave["startPos"]["y"]
+	local startPosz = ofsave["startPos"]["z"]
 	moveToPos(startPosx, startPosy, startPosz, faceB)
 end
 
@@ -344,14 +343,20 @@ function oreFinder()
 	W = ofsave["W"]
 	for l=l,L do
 		for w=w,W do
-			ofsave = {["returnPos"] = {["x"] = x, ["z"] = z, ["face"] = face}, ["l"] = l, ["w"] = w, ["L"] = L, ["W"] = W}
+			ofsave["returnPos"]["x"] = x
+			ofsave["returnPos"]["z"] = z
+			ofsave["returnPos"]["face"] = face
+			ofsave["l"] = l
+			ofsave["w"] = w
+			ofsave["L"] = L
+			ofsave["W"] = W
 			if fs.exists("ofsave") then
 				fs.delete("ofsave")
 			end
 			saveTable(ofsave, "ofsave")
 			checkReturn()
-			returnPosx = ofsave["returnPos"]["x"]
-			returnPosz = ofsave["returnPos"]["z"]
+			local returnPosx = ofsave["returnPos"]["x"]
+			local returnPosz = ofsave["returnPos"]["z"]
 			if math.fmod((ofsave["returnPos"]["x"]+4)-2*(ofsave["returnPos"]["z"]-1), 5) == 0 then
 				findDown()
 				returnLast()
@@ -359,12 +364,14 @@ function oreFinder()
 			if ofsave["w"] == ofsave["W"] then
 				if face == faceF then
 					turnRight()
-					ofsave = {["right"] = true}
+					ofsave["right"] = true
 				elseif face == faceB then 
 					turnLeft()
-					ofsave = {["left"] = true}
+					ofsave["left"] = true
 				end
-				ofsave = {["returnPos"] = {["x"] = x, ["z"] = z, ["face"] = face}}
+				ofsave["returnPos"]["x"] = x
+				ofsave["returnPos"]["z"] = z
+				ofsave["returnPos"]["face"] = face
 				if fs.exists("ofsave") then
 					fs.delete("ofsave")
 				end
@@ -378,7 +385,10 @@ function oreFinder()
 				elseif not moved and not turtle.detect() then
 					repeat turtle.attack() until forward()
 				end
-				ofsave = {["returnPos"] = {["x"] = x, ["z"] = z, ["face"] = face}, ["forward"] = true}
+				ofsave["returnPos"]["x"] = x
+				ofsave["returnPos"]["z"] = z
+				ofsave["returnPos"]["face"] = face
+				ofsave["forward"] = true
 				if fs.exists("ofsave") then
 					fs.delete("ofsave")
 				end
@@ -386,12 +396,15 @@ function oreFinder()
 			end
 			if ofsave["right"] then
 				turnRight()
-				ofsave = {["right"] = false}
+				ofsave["right"] = false
 			elseif ofsave["left"] then
 				turnLeft()
-				ofsave = {["left"] = false}
+				ofsave["left"] = false
 			end
-			ofsave = {["returnPos"] = {["x"] = x, ["z"] = z, ["face"] = face},["forward"] = false}
+			ofsave["returnPos"]["x"] = x
+			ofsave["returnPos"]["z"] = z
+			ofsave["returnPos"]["face"] = face
+			ofsave["forward"] = false
 			if fs.exists("ofsave") then
 				fs.delete("ofsave")
 			end
