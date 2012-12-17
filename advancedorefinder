@@ -391,7 +391,7 @@ function runOreFinder(width, length, ignore)
 		end
 		saveTable(ofsave, "ofsave")
 	else
-		ofsave = loadTable(ofsave)
+		ofsave = loadTable("ofsave")
 		moveToPos(ofsave["returnPos"]["x"], ofsave["returnPos"]["y"], ofsave["returnPos"]["z"], ofsave["returnPos"]["face"])
 	end
 	local faceF = ofsave["startPos"]["face"]
