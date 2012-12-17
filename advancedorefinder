@@ -201,7 +201,7 @@ function compareForward(startSlot, endSlot)
 		local startSlot=2
 	end
 	if not endSlot then
-		local endSlot = ofsave["ignore"] + 1
+		local endSlot = ignore + 1
 	end
 	Ore = true
 	for i=startSlot,endSlot,1 do
@@ -444,6 +444,7 @@ function runOreFinder(width, length, ignore)
 		y = ofsave["startPos"]["y"]
 		z = ofsave["startPos"]["z"]
 		face = ofsave["startPos"]["face"]
+		ignore = ofsave["ignore"]
 	end
 	local faceF = ofsave["startPos"]["face"]
 	if faceF<=1 then
