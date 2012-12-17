@@ -109,7 +109,7 @@ function drawOreFinder()
 		printRight("|"..string.rep(" ", (21/2)-(#namea/2))..namea..string.rep(" ", (21/2)-(#namea/2)), 4)
 		printRight("|   Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 5), 6)
 		printRight("|   Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 6), 7)
-		printRight("| Ignore:   "..string.rep(" ", 2-#ingore)..ignore..string.rep(" ", 8), 9)
+		printRight("| Ignore:   "..string.rep(" ", 2-#ignore)..ignore..string.rep(" ", 8), 9)
 	elseif select == 4 then
 		local width = preset[2].values[1]
 		local length = preset[2].values[2]
@@ -120,7 +120,7 @@ function drawOreFinder()
 		printRight("|"..string.rep(" ", (21/2)-(#nameb/2))..nameb..string.rep(" ", (21/2)-(#nameb/2)), 4)
 		printRight("|   Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 5), 6)
 		printRight("|   Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 6), 7)
-		printRight("| Ignore:   "..string.rep(" ", 2-#ingore)..ignore..string.rep(" ", 8), 9)
+		printRight("| Ignore:   "..string.rep(" ", 2-#ignore)..ignore..string.rep(" ", 8), 9)
 	elseif select == 5 then
 		local width = preset[3].values[1]
 		local length = preset[3].values[2]
@@ -131,7 +131,7 @@ function drawOreFinder()
 		printRight("|"..string.rep(" ", (21/2)-(#namec/2))..namec..string.rep(" ", (21/2)-(#namec/2)), 4)
 		printRight("|   Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 5), 6)
 		printRight("|   Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 6), 7)
-		printRight("| Ignore:   "..string.rep(" ", 2-#ingore)..ignore..string.rep(" ", 8), 9)
+		printRight("| Ignore:   "..string.rep(" ", 2-#ignore)..ignore..string.rep(" ", 8), 9)
 	elseif select == 6 then
 		printLeft(">", screenh-1)
 	end
@@ -244,22 +244,23 @@ function drawOreFinderNew()
 			while true do
 				term.clear()
 				drawHeader()
-				printCentered("Enter the variables for the new excavation.", 4)
+				printCentered("Enter the variables for the excavation.", 4)
 				printLeft("   Width: ", 6)
-				printLeft("  Length: ", 8)
+				printLeft("  Length: ", 7)
+				printLeft("  Ignore: ", 9)
 				term.setCursorPos(12, 6)
 				Width = tonumber(read())
 				if Width ~= nil and Width > 0 then
 					break
 				end
 			end
-			term.setCursorPos(12, 8)
+			term.setCursorPos(12, 7)
 			Length = tonumber(read())
 			if Length ~= nil and Length > 0 then
 				break
 			end
 		end
-		term.setCursorPos(12, 11)
+		term.setCursorPos(12, 9)
 		Ignore = tonumber(read())
 		if Ignore ~= nil and Ignore >= 0 and Ignore < 16 then
 			break
@@ -276,7 +277,7 @@ function drawOreFinderEdit()
 				while true do
 					term.clear()
 					drawHeader()
-					printCentered("Enter the new variables for preset " .. presetname .. ".", 4)
+					printCentered("Enter the variables for " .. presetname .. ".", 4)
 					printLeft("    Name: ", 6)
 					printLeft("   Width: ", 8)
 					printLeft("  Length: ", 10)
