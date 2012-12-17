@@ -389,8 +389,7 @@ function oreFinder()
 				turnLeft()
 				ofsave["left"] = false
 			end
-			w = w + 1
-			ofsave["w"] = w
+			ofsave["w"] = ofsave["w"] + 1
 			ofsave["returnPos"]["x"] = x
 			ofsave["returnPos"]["z"] = z
 			ofsave["returnPos"]["face"] = face
