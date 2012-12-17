@@ -349,7 +349,7 @@ function gui()
 					menustate = "orefindernofile"
 				end
 			elseif mopt[menustate].options[select] == "orefinderrun" then
-				if menustate = "orefindercontinue" then
+				if menustate == "orefindercontinue" then
 					-- Run OreFinder with with save file
 					shell.run("advancedorefinder")
 				else
