@@ -344,15 +344,20 @@ function gui()
 				break
 			elseif mopt[menustate].options[select] == "orefindercontinue" then
 				if fs.exists("ofsave") then
-					term.clear()
-					shell.run("advancedorefinder")
+					menustate = "orefindercontinue"
 				else
 					menustate = "orefindernofile"
 				end
 			elseif mopt[menustate].options[select] == "orefinderrun" then
-				-- Run OreFinder with Length and Width
-				shell.run("advancedorefinder", Width, Length, 3)
+				if menustate = "orefindercontinue" then
+					-- Run OreFinder with with save file
+					shell.run("advancedorefinder")
+				else
+					-- Run OreFinder with Width and Length
+					shell.run("advancedorefinder", Width, Length, 3)
+				end
 			elseif mopt[menustate].options[select] == "tunnel" then
+				-- Run Tunnel
 				shell.run("advancedtunnel")
 			else
 				if mopt[menustate].options[select] == "orefinderpreset" then
