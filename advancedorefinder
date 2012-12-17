@@ -337,10 +337,10 @@ function checkReturn()
 end
 
 function oreFinder()
-	local l = ofsave["l"]
-	local L = ofsave["L"]
-	local w = ofsave["w"]
-	local W = ofsave["W"]
+	l = ofsave["l"]
+	L = ofsave["L"]
+	w = ofsave["w"]
+	W = ofsave["W"]
 	for l=l,L do
 		for w=w,W do
 			ofsave = {["returnPos"] = {["x"] = x, ["z"] = z, ["face"] = face}, ["l"] = l, ["w"] = w, ["L"] = L, ["W"] = W}
