@@ -10,7 +10,12 @@ function version()
 end
 
 function skip()
-	local id, key = os.pullEvent("key")
+	while true do
+		local id, key = os.pullEvent("key")
+		if key == 57 then
+			break
+		end
+	end
 end
 
 function saveTable(table,name)
