@@ -367,6 +367,10 @@ end
 
 function runOreFinder(width, length, ignore)
 	if width and length then
+		x = 1
+		y = 64
+		z = 1
+		face = 0
 		ofsave = {
 			["startPos"] = {
 				["x"] = x, ["y"] = y, ["z"] = z, ["face"] = face
@@ -392,6 +396,10 @@ function runOreFinder(width, length, ignore)
 		saveTable(ofsave, "ofsave")
 	else
 		ofsave = loadTable("ofsave")
+		x = ofsave["startPos"]["x"]
+		y = ofsave["startPos"]["y"]
+		z = ofsave["startPos"]["z"]
+		face = ofsave["startPos"]["face"]
 		moveToPos(ofsave["returnPos"]["x"], ofsave["returnPos"]["y"], ofsave["returnPos"]["z"], ofsave["returnPos"]["face"])
 	end
 	local faceF = ofsave["startPos"]["face"]
@@ -411,8 +419,4 @@ if #tArgs > 0 then
 elseif not fs.exists("ofsave") then
 	print("Usage: " .. shell.getRunningProgram() .. " <width> <length> <ignore>")
 end
-x = 1
-y = 64
-z = 1
-face = 0
 runOreFinder(width, length, ignore)
