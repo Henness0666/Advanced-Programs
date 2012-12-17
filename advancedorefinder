@@ -508,7 +508,7 @@ function runOreFinder(width, length, ignore)
 		printCentered("Continuing from previous excavation,", 4)
 		printCentered("press space at any time to pause.", 5)
 		ofsave = loadTable("ofsave")
-		moveToPos(["currentPos"]["x"],["currentPos"]["y"],["currentPos"]["z"],ofsave["returnPos"]["face"])
+		moveToPos(ofsave["currentPos"]["x"],ofsave["currentPos"]["y"],ofsave["currentPos"]["z"],ofsave["returnPos"]["face"])
 	end
 	faceF = ofsave["startPos"]["face"]
 	if faceF<=1 then
