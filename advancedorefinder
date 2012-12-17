@@ -457,9 +457,9 @@ end
 
 local tArgs = { ... }
 if #tArgs > 0 then
-	width = tArgs[1]
-	length = tArgs[2]
-	ignore = tArgs[3]
+	width = tonumber(tArgs[1])
+	length = tonumber(tArgs[2])
+	ignore = tonumber(tArgs[3])
 elseif not fs.exists("ofsave") then
 	print("Usage: " .. shell.getRunningProgram() .. " <width> <length> <ignore>")
 end
