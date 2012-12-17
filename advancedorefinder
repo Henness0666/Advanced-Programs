@@ -237,6 +237,21 @@ function findDown(n) -- Finds all ores bellow the turtle for "n" distance
 	end
 end
 
+function returnLast()
+	returnPosx = ofsave["returnPos"]["x"]
+	returnPosy = ofsave["returnPos"]["y"]
+	returnPosz = ofsave["returnPos"]["z"]
+	returnPosface = ofsave["returnPos"]["face"]
+	moveToPos(returnPosx, returnPosy, returnPosz, returnPosface)
+end
+
+function returnStart()
+	startPosx = ofsave["startPos"]["x"]
+	startPosy = ofsave["startPos"]["y"]
+	startPosz = ofsave["startPos"]["z"]
+	moveToPos(startPosx, startPosy, startPosz, faceB)
+end
+
 function moveToPos(A, B, C, direction)
 	a=A-x
 	b=B-y
@@ -299,10 +314,7 @@ end
 
 function checkReturn()
 	if turtle.getFuelLevel() < 2*y+W+L then
-		local startPosx = ofsave["startPos"]["x"]
-		local startPosy = ofsave["startPos"]["y"]
-		local startPosz = ofsave["startPos"]["z"]
-		moveToPos(startPosx, startPosy, startPosz, faceB)
+		returnStart()
 		for i=ignore+2,16,1 do
 			turtle.select(i)
 			turtle.drop()
@@ -314,25 +326,14 @@ function checkReturn()
 			end
 			sleep(0.1)
 		until turtle.getFuelLevel() > 2*y+W+L
-		local returnPosx = ofsave["returnPos"]["x"]
-		local returnPosy = ofsave["returnPos"]["y"]
-		local returnPosz = ofsave["returnPos"]["z"]
-		local returnPosface = ofsave["returnPos"]["face"]
-		moveToPos(returnPosx, returnPosy, returnPosz, returnPosface)
+		returnLast()
 	elseif turtle.getItemCount(16) > 0 then
-		local startPosx = ofsave["startPos"]["x"]
-		local startPosy = ofsave["startPos"]["y"]
-		local startPosz = ofsave["startPos"]["z"]
-		moveToPos(startPosx, startPosy, startPosz, faceB)
+		returnStart()
 		for i=ignore+2,16,1 do
 			turtle.select(i)
 			turtle.drop()
 		end
-		local returnPosx = ofsave["returnPos"]["x"]
-		local returnPosy = ofsave["returnPos"]["y"]
-		local returnPosz = ofsave["returnPos"]["z"]
-		local returnPosface = ofsave["returnPos"]["face"]
-		moveToPos(returnPosx, returnPosy, returnPosz, returnPosface)
+		returnLast()
 	end
 end
 
@@ -349,15 +350,11 @@ function oreFinder()
 			end
 			saveTable(ofsave, "ofsave")
 			checkReturn()
-			local returnPosx = ofsave["returnPos"]["x"]
-			local returnPosz = ofsave["returnPos"]["z"]
+			returnPosx = ofsave["returnPos"]["x"]
+			returnPosz = ofsave["returnPos"]["z"]
 			if math.fmod((ofsave["returnPos"]["x"]+4)-2*(ofsave["returnPos"]["z"]-1), 5) == 0 then
 				findDown()
-				local returnPosx = ofsave["returnPos"]["x"]
-				local returnPosy = ofsave["returnPos"]["y"]
-				local returnPosz = ofsave["returnPos"]["z"]
-				local returnPosface = ofsave["returnPos"]["face"]
-				moveToPos(returnPosx, returnPosy, returnPosz, returnPosface)
+				returnLast()
 			end
 			if ofsave["w"] == ofsave["W"] then
 				if face == faceF then
