@@ -416,7 +416,7 @@ end
 
 function runOreFinder(width, length, ignore)
 	rednet.open("right")
-	x,y,z = gps.locate(5)		
+	x,z,y = gps.locate(5)		
 	if not x and not y and not z then
 		while true do
 			while true do
@@ -462,7 +462,7 @@ function runOreFinder(width, length, ignore)
 		elseif not moved and not turtle.detect() then
 			repeat turtle.attack() until turtle.forward()
 		end
-		local tmpx,tmpy,tmpz = gps.locate(5)
+		local tmpx,tmpz,tmpy = gps.locate(5)
 		turtle.back()
 		if tmpx > x then
 			face = 3
