@@ -106,7 +106,7 @@ function drawOreFinder()
 		local minutes = preset[1].values[4]
 		local ignore = preset[1].values[6]
 		printLeft(">", 7)
-		printRight("|"..string.rep(" ", (21/2)-(#namea/2))..namea..string.rep(" ", (21/2)-(#namea/2)), 4)
+		printRight("| "namea..string.rep(" ", 20-#namea), 4)
 		printRight("|   Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 5), 6)
 		printRight("|   Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 6), 7)
 		printRight("| Ignore:   "..string.rep(" ", 2-#ignore)..ignore..string.rep(" ", 8), 9)
@@ -117,7 +117,7 @@ function drawOreFinder()
 		local minutes = preset[2].values[4]
 		local ignore = preset[2].values[6]
 		printLeft(">", 8)
-		printRight("|"..string.rep(" ", (21/2)-(#nameb/2))..nameb..string.rep(" ", (21/2)-(#nameb/2)), 4)
+		printRight("| "nameb..string.rep(" ", 20-#nameb), 4)
 		printRight("|   Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 5), 6)
 		printRight("|   Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 6), 7)
 		printRight("| Ignore:   "..string.rep(" ", 2-#ignore)..ignore..string.rep(" ", 8), 9)
@@ -128,7 +128,7 @@ function drawOreFinder()
 		local minutes = preset[3].values[4]
 		local ignore = preset[3].values[6]
 		printLeft(">", 9)
-		printRight("|"..string.rep(" ", (21/2)-(#namec/2))..namec..string.rep(" ", (21/2)-(#namec/2)), 4)
+		printRight("| "namec..string.rep(" ", 20-#namec), 4)
 		printRight("|   Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 5), 6)
 		printRight("|   Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 6), 7)
 		printRight("| Ignore:   "..string.rep(" ", 2-#ignore)..ignore..string.rep(" ", 8), 9)
@@ -219,11 +219,11 @@ function drawOreFinderPreset()
 			printCentered("|                               |", 4 + i)
 			printCentered(Name, 4 + i)
 		elseif i == 3 then
-			printCentered("|    Size: " .. string.rep("0", 3-#Width) .. Width .. "x" .. string.rep("0", 3-#Length) .. Length .. string.rep(" ", 14) .. "|", 4 + i)
+			printCentered("|      Size: " .. string.rep("0", 3-#Width) .. Width .. "x" .. string.rep("0", 3-#Length) .. Length .. string.rep(" ", 12) .. "|", 4 + i)
 		elseif i == 4 then
-			printCentered("|    Time:  " .. string.rep("0", 2-#Hours) .. Hours .. ":" .. string.rep("0", 2-#Minutes) .. Minutes .. string.rep(" ", 15) .. "|", 4 + i)
+			printCentered("|      Time:  " .. string.rep("0", 2-#Hours) .. Hours .. ":" .. string.rep("0", 2-#Minutes) .. Minutes .. string.rep(" ", 13) .. "|", 4 + i)
 		elseif i == 5 then
-			printCentered("|  Ignore:   "..string.rep(" ", 2-#Ignore)..Ignore..string.rep(" ", 17), 4 + i)
+			printCentered("|    Ignore:   " .. string.rep(" ", 2-#Ignore) .. Ignore .. string.rep(" ", 15) .. "|", 4 + i)
 		elseif i == #presetList-1 then
 			if select == 1 then
 				printCentered("|   [START]   CANCEL    EDIT    |", 4 + i)
@@ -277,10 +277,11 @@ function drawOreFinderEdit()
 				while true do
 					term.clear()
 					drawHeader()
-					printCentered("Input variables for " .. presetname .. ".", 4)
+					printCentered("Input variables for preset " .. presetname .. ".", 4)
 					printLeft("    Name: ", 6)
 					printLeft("   Width: ", 8)
-					printLeft("  Length: ", 10)
+					printLeft("  Length: ", 9)
+					printLeft("  Ignore: ", 11)
 					term.setCursorPos(12, 6)
 					Name = tostring(read())
 					if Name ~= nil and #Name < 15 then
