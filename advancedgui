@@ -348,25 +348,29 @@ function gui()
 				else
 					saveTable = loadTable("ofsave")
 					-- Continue OreFinder with save file
+					shell.run("advancedoredfinder")
 				end
 			elseif mopt[menustate].options[select] == "orefinderrun" then
 				-- Run OreFinder with Length and Width
+				shell.run("advancedoredfinder", Width, Length, 3)
 			elseif mopt[menustate].options[select] == "tunnel" then
 				shell.run("advancedtunnel")
-			elseif mopt[menustate].options[select] == "orefinderpreset" then
-				drawOreFinder()
-				if select == 3 then
-					presetstate = 1
-					presetname = "one"
-				elseif select == 4 then
-					presetstate = 2
-					presetname = "two"
-				elseif select == 5 then
-					presetstate = 3
-					presetname = "three"
+			else
+				if mopt[menustate].options[select] == "orefinderpreset" then
+					drawOreFinder()
+					if select == 3 then
+						presetstate = 1
+						presetname = "one"
+					elseif select == 4 then
+						presetstate = 2
+						presetname = "two"
+					elseif select == 5 then
+						presetstate = 3
+						presetname = "three"
+					end
 				end
+				menustate = mopt[menustate].options[select]
 			end
-			menustate = mopt[menustate].options[select]
 			select = 1
 		end
 	end
