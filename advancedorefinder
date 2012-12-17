@@ -335,13 +335,6 @@ end
 function oreFinder()
 	while ofsave["w"] <= ofsave["width"] do
 		while ofsave["l"] <= ofsave["length"] do
-			ofsave["returnPos"]["x"] = x
-			ofsave["returnPos"]["z"] = z
-			ofsave["returnPos"]["face"] = face
-			if fs.exists("ofsave") then
-				fs.delete("ofsave")
-			end
-			saveTable(ofsave, "ofsave")
 			checkReturn()
 			local returnPosx = ofsave["returnPos"]["x"]
 			local returnPosz = ofsave["returnPos"]["z"]
@@ -459,11 +452,13 @@ function runOreFinder(width, length, ignore)
 end
 
 local tArgs = { ... }
-if #tArgs > 0 then
+if #tArgs == 3 then
 	width = tonumber(tArgs[1])
 	length = tonumber(tArgs[2])
 	ignore = tonumber(tArgs[3])
-elseif not fs.exists("ofsave") then
+	runOreFinder(width, length, ignore)
+elseif fs.exists("ofsave") and #tArgs ~= 3 then
 	print("Usage: " .. shell.getRunningProgram() .. " <width> <length> <ignore>")
+else
+	runOreFinder()
 end
-runOreFinder(width, length, ignore)
