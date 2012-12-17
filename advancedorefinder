@@ -389,7 +389,8 @@ function oreFinder()
 				turnLeft()
 				ofsave["left"] = false
 			end
-			ofsave["w"] = ofsave["w"] + 1
+			local w = ofsave["w"] + 1
+			ofsave["w"] = w
 			ofsave["returnPos"]["x"] = x
 			ofsave["returnPos"]["z"] = z
 			ofsave["returnPos"]["face"] = face
@@ -399,7 +400,8 @@ function oreFinder()
 			end
 			saveTable(ofsave, "ofsave")
 		end
-		ofsave["l"] = ofsave["l"] + 1
+		local l = ofsave["l"] + 1
+		ofsave["l"] = l
 		ofsave["w"] = 1
 		if fs.exists("ofsave") then
 			fs.delete("ofsave")
