@@ -465,6 +465,7 @@ function runOreFinder(width, length, ignore)
 			repeat turtle.attack() until turtle.forward()
 		end
 		local tmpx,tmpy,tmpz = gps.locate(5)
+		turtle.back()
 		if tmpx > x then
 			face = 3
 		elseif tmpx < x then

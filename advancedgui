@@ -71,13 +71,13 @@ function drawOreFinder()
 	else
 		preset = {
 			[1] = {
-				values = {"000", "000", "00", "00", "PRESET #1"}
+				values = {"000", "000", "00", "00", "PRESET #1", "0"}
 			},
 			[2] = {
-				values = {"000", "000", "00", "00", "PRESET #2"}
+				values = {"000", "000", "00", "00", "PRESET #2", "0"}
 			},
 			[3] = {
-				values = {"000", "000", "00", "00", "PRESET #3"}
+				values = {"000", "000", "00", "00", "PRESET #3", "0"}
 			}
 		}
 		saveTable(preset, "ofpreset")
@@ -104,28 +104,34 @@ function drawOreFinder()
 		local length = preset[1].values[2]
 		local hours = preset[1].values[3]
 		local minutes = preset[1].values[4]
+		local ignore = preset[1].values[6]
 		printLeft(">", 7)
-		printRight("| "..namea..string.rep(" ", 20-#namea), 4)
-		printRight("| Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 7), 6)
-		printRight("| Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 8), 7)
+		printRight("|"..string.rep(" ", (21/2)-(#namea/2))..namea..string.rep(" ", (21/2)-(#namea/2)), 4)
+		printRight("|   Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 5), 6)
+		printRight("|   Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 6), 7)
+		printRight("| Ignore:   "..string.rep(" ", 2-#ingore)..ignore..string.rep(" ", 8), 9)
 	elseif select == 4 then
 		local width = preset[2].values[1]
 		local length = preset[2].values[2]
 		local hours = preset[2].values[3]
 		local minutes = preset[2].values[4]
+		local ignore = preset[2].values[6]
 		printLeft(">", 8)
-		printRight("| "..nameb..string.rep(" ", 20-#nameb), 4)
-		printRight("| Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 7), 6)
-		printRight("| Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 8), 7)
+		printRight("|"..string.rep(" ", (21/2)-(#nameb/2))..nameb..string.rep(" ", (21/2)-(#nameb/2)), 4)
+		printRight("|   Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 5), 6)
+		printRight("|   Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 6), 7)
+		printRight("| Ignore:   "..string.rep(" ", 2-#ingore)..ignore..string.rep(" ", 8), 9)
 	elseif select == 5 then
 		local width = preset[3].values[1]
 		local length = preset[3].values[2]
 		local hours = preset[3].values[3]
 		local minutes = preset[3].values[4]
+		local ignore = preset[3].values[6]
 		printLeft(">", 9)
-		printRight("| "..namec..string.rep(" ", 20-#namec), 4)
-		printRight("| Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 7), 6)
-		printRight("| Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 8), 7)
+		printRight("|"..string.rep(" ", (21/2)-(#namec/2))..namec..string.rep(" ", (21/2)-(#namec/2)), 4)
+		printRight("|   Size: "..string.rep("0", 3-#width)..width.."x"..string.rep("0", 3-#length)..length..string.rep(" ", 5), 6)
+		printRight("|   Time:  "..string.rep("0", 2-#hours)..hours..":"..string.rep("0", 2-#minutes)..minutes..string.rep(" ", 6), 7)
+		printRight("| Ignore:   "..string.rep(" ", 2-#ingore)..ignore..string.rep(" ", 8), 9)
 	elseif select == 6 then
 		printLeft(">", screenh-1)
 	end
@@ -207,6 +213,7 @@ function drawOreFinderPreset()
 	Length = preset[presetstate].values[2]
 	Hours = preset[presetstate].values[3]
 	Minutes = preset[presetstate].values[4]
+	Ignore = preset[presetstate].values[6]
 	for i=1,#presetList do
 		if i == 2 then
 			printCentered("|                               |", 4 + i)
@@ -215,6 +222,8 @@ function drawOreFinderPreset()
 			printCentered("|    Size: " .. string.rep("0", 3-#Width) .. Width .. "x" .. string.rep("0", 3-#Length) .. Length .. string.rep(" ", 14) .. "|", 4 + i)
 		elseif i == 4 then
 			printCentered("|    Time:  " .. string.rep("0", 2-#Hours) .. Hours .. ":" .. string.rep("0", 2-#Minutes) .. Minutes .. string.rep(" ", 15) .. "|", 4 + i)
+		elseif i == 5 then
+			printCentered("|  Ignore:   "..string.rep(" ", 2-#Ingore)..Ignore..string.rep(" ", 17), 4 + i)
 		elseif i == #presetList-1 then
 			if select == 1 then
 				printCentered("|   [START]   CANCEL    EDIT    |", 4 + i)
@@ -232,20 +241,27 @@ end
 function drawOreFinderNew()
 	while true do
 		while true do
-			term.clear()
-			drawHeader()
-			printCentered("Enter the variables for the new excavation.", 4)
-			printLeft("   Width: ", 6)
-			printLeft("  Length: ", 8)
-			term.setCursorPos(12, 6)
-			Width = tonumber(read())
-			if Width ~= nil and Width > 0 then
+			while true do
+				term.clear()
+				drawHeader()
+				printCentered("Enter the variables for the new excavation.", 4)
+				printLeft("   Width: ", 6)
+				printLeft("  Length: ", 8)
+				term.setCursorPos(12, 6)
+				Width = tonumber(read())
+				if Width ~= nil and Width > 0 then
+					break
+				end
+			end
+			term.setCursorPos(12, 8)
+			Length = tonumber(read())
+			if Length ~= nil and Length > 0 then
 				break
 			end
 		end
-		term.setCursorPos(12, 8)
-		Length = tonumber(read())
-		if Length ~= nil and Length > 0 then
+		term.setCursorPos(12, 11)
+		Ignore = tonumber(read())
+		if Ignore ~= nil and Ignore >= 0 and Ignore < 16 then
 			break
 		end
 	end
@@ -257,33 +273,41 @@ function drawOreFinderEdit()
 	while true do
 		while true do
 			while true do
-				term.clear()
-				drawHeader()
-				printCentered("Enter the new variables for preset " .. presetname .. ".", 4)
-				printLeft("    Name: ", 6)
-				printLeft("   Width: ", 8)
-				printLeft("  Length: ", 10)
-				term.setCursorPos(12, 6)
-				Name = tostring(read())
-				if Name ~= nil and #Name < 15 then
+				while true do
+					term.clear()
+					drawHeader()
+					printCentered("Enter the new variables for preset " .. presetname .. ".", 4)
+					printLeft("    Name: ", 6)
+					printLeft("   Width: ", 8)
+					printLeft("  Length: ", 10)
+					term.setCursorPos(12, 6)
+					Name = tostring(read())
+					if Name ~= nil and #Name < 15 then
+						break
+					end
+				end
+				term.setCursorPos(12, 8)
+				Width = tonumber(read())
+				if Width ~= nil and Width > 0 then
 					break
 				end
 			end
-			term.setCursorPos(12, 8)
-			Width = tonumber(read())
-			if Width ~= nil and Width > 0 then
+			term.setCursorPos(12, 9)
+			Length = tonumber(read())
+			if Length ~= nil and Length > 0 then
 				break
 			end
 		end
-		term.setCursorPos(12, 10)
-		Length = tonumber(read())
-		if Length ~= nil and Length > 0 then
+		term.setCursorPos(12, 11)
+		Ignore = tonumber(read())
+		if Ignore ~= nil and Ignore >= 0 and Ignore < 16 then
 			break
 		end
 	end
 	preset[presetstate].values[5] = Name
 	preset[presetstate].values[1] = tostring(Width)
 	preset[presetstate].values[2] = tostring(Length)
+	preset[presetstate].values[6] = tostring(Ignore)
 	--Calculate Time
 	saveTable(preset, "ofpreset")
 	drawOreFinder()
@@ -352,11 +376,11 @@ function gui()
 				if menustate == "orefindercontinue" then
 					-- Run OreFinder with with save file
 					shell.run("advancedorefinder")
-					menustate = "main"
+					menustate = "orefinder"
 				else
 					-- Run OreFinder with Width and Length
-					shell.run("advancedorefinder", Width, Length, 3)
-					menustate = "main"
+					shell.run("advancedorefinder", Width, Length, Ignore)
+					menustate = "orefinder"
 				end
 			elseif mopt[menustate].options[select] == "tunnel" then
 				-- Run Tunnel
