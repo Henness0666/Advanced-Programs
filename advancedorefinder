@@ -348,8 +348,6 @@ function oreFinder()
 	while ofsave["w"] <= ofsave["width"] do
 		while ofsave["l"] <= ofsave["length"] do
 			checkReturn()
-			local returnPosx = ofsave["returnPos"]["x"]
-			local returnPosz = ofsave["returnPos"]["z"]
 			if math.fmod((ofsave["returnPos"]["x"]+4)-2*(ofsave["returnPos"]["z"]-1), 5) == 0 then
 				findDown()
 				returnLast()
