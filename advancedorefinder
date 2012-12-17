@@ -2,11 +2,23 @@
 -- Version 2.0 12/16/2012
 
 -- Config
-Version = "v2.0"
+local version = "v2.0"
+local author = "[by Henness]"
 
 -- Functions
 function version()
 	return Version
+end
+
+function printCentered(str, ypos)
+	term.setCursorPos(screenw/2 - #str/2, ypos)
+	term.write(str)
+end
+
+function drawHeader()
+	printCentered("Advanced OreFinder", 1)
+	printCentered(string.rep("-", screenw), 2) 
+	printCentered(string.rep("-", screenw-#author)..author, screenh)
 end
 
 function skip()
@@ -405,11 +417,68 @@ function oreFinder()
 end
 
 function runOreFinder(width, length, ignore)
+	x,y,z = gps.locate(5)		
+	if not x and not y and not z then
+		while true do
+			while true do
+				while true do
+					while true do
+						term.clear()
+						drawHeader()
+						printCentered("Unable to get GPS cords.  Please,", 4)
+						printCentered("enter the turtles cords manually.", 5)
+						printLeft("     x: ", 7)
+						printLeft("     y: ", 8)
+						printLeft("     z: ", 9)
+						printLeft("  face: ", 11)
+						term.setCursorPos(9, 7)
+						x = tonumber(read())
+						if x ~= nil then
+							break
+						end
+					end
+					term.setCursorPos(9, 8)
+					y = tonumber(read())
+					if y ~= nil and y > 0 and y < 256 then
+						break
+					end
+				end
+				term.setCursorPos(9, 9)
+				z = tonumber(read())
+				if z ~= nil then
+					break
+				end
+			end
+			term.setCursorPos(9, 11)
+			face = tonumber(read())
+			if face ~= nil and face < 4 and face >= 0 then
+				break
+			end
+		end
+	else
+		local moved = turtle.forward()
+		if not moved and turtle.detect() then
+			repeat dig() until turtle.forward()
+			local moved = true
+		elseif not moved and not turtle.detect() then
+			repeat turtle.attack() until turtle.forward()
+		end
+		local tmpx,tmpy,tmpz = gps.locate(5)
+		if tmpx > x then
+			face = 3
+		elseif tmpx < x then
+			face = 1
+		elseif tmpz > z then
+			face = 0
+		elseif tmpz < z then
+			face = 2
+		end
+	end
 	if width and length and ignore then
-		x = 1
-		y = 64
-		z = 1
-		face = 0
+		term.clear()
+		drawHeader()
+		printCentered("Starting a new excavation,", 4)
+		printCentered("press space at any time to pause.", 5)
 		ofsave = {
 			["startPos"] = {
 				["x"] = x, ["y"] = y, ["z"] = z, ["face"] = face
@@ -434,12 +503,12 @@ function runOreFinder(width, length, ignore)
 		end
 		saveTable(ofsave, "ofsave")
 	else
+		term.clear()
+		drawHeader()
+		printCentered("Continuing from previous excavation,", 4)
+		printCentered("press space at any time to pause.", 5)
 		ofsave = loadTable("ofsave")
-		x = ofsave["currentPos"]["x"]
-		y = ofsave["currentPos"]["y"]
-		z = ofsave["currentPos"]["z"]
-		face = ofsave["currentPos"]["face"]
-		setFace(ofsave["returnPos"]["face"])
+		moveToPos(["currentPos"]["x"],["currentPos"]["y"],["currentPos"]["z"],ofsave["returnPos"]["face"])
 	end
 	faceF = ofsave["startPos"]["face"]
 	if faceF<=1 then
@@ -451,6 +520,9 @@ function runOreFinder(width, length, ignore)
 end
 
 local tArgs = { ... }
+term.clear()
+drawHeader()
+term.setCursorPos(1,1)
 if #tArgs == 3 then
 	width = tonumber(tArgs[1])
 	length = tonumber(tArgs[2])

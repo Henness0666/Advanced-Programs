@@ -47,7 +47,7 @@ function drawHeader()
 	local author = "[by Henness]"
 	printCentered("Advanced Program's", 1)
 	printCentered(string.rep("-", screenw), 2) 
-	printRight(string.rep("-", screenw-#author)..author, screenh)
+	printCentered(string.rep("-", screenw-#author)..author, screenh)
 end
 
 function drawMain()
