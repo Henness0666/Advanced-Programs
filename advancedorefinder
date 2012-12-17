@@ -263,14 +263,14 @@ function moveToPos(A, B, C, Face)
 	a=A-x
 	b=B-y
 	c=C-z
-	if b<0 then
+	if b>0 then
 		for i=1,math.abs(b) do
-			local moved = down()
-			if not moved and turtle.detectDown() then
-				repeat digDown() until down()
+			local moved = up()
+			if not moved and turtle.detectUp() then
+				repeat digUp() until up()
 				local moved = true
-			elseif not moved and not turtle.detectDown() then
-				repeat turtle.attackDown() until down()
+			elseif not moved and not turtle.detectUp() then
+				repeat turtle.attackUp() until up()
 			end
 		end
 	end
@@ -306,14 +306,14 @@ function moveToPos(A, B, C, Face)
 			end
 		end
 	end
-	if b>0 then
+	if b<0 then
 		for i=1,math.abs(b) do
-			local moved = up()
-			if not moved and turtle.detectUp() then
-				repeat digUp() until up()
+			local moved = down()
+			if not moved and turtle.detectDown() then
+				repeat digDown() until down()
 				local moved = true
-			elseif not moved and not turtle.detectUp() then
-				repeat turtle.attackUp() until up()
+			elseif not moved and not turtle.detectDown() then
+				repeat turtle.attackDown() until down()
 			end
 		end
 	end
