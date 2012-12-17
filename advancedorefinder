@@ -420,4 +420,8 @@ if #tArgs > 0 then
 	length = tArgs[2]
 	ignore = tArgs[3]
 end
+x = 0
+y = 64
+z = 0
+face = 0
 runOreFinder(width, length, ignore)
