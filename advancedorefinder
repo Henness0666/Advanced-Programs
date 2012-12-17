@@ -32,10 +32,6 @@ function loadTable(name)
 end
 
 function save()
-	ofsave["w"] = w
-	ofsave["l"] = l
-	ofsave["W"] = width
-	ofsave["L"] = length
 	ofsave["currentPos"]["x"] = x
 	ofsave["currentPos"]["y"] = y
 	ofsave["currentPos"]["z"] = z
@@ -339,17 +335,13 @@ end
 function oreFinder()
 	l = ofsave["l"]
 	L = ofsave["L"]
-	w = ofsave["w"]
-	W = ofsave["W"]
-	for l=l,L do
-		for w=w,W do
+	while l<=L do
+		w = ofsave["w"]
+		W = ofsave["W"]
+		while w<=W do
 			ofsave["returnPos"]["x"] = x
 			ofsave["returnPos"]["z"] = z
 			ofsave["returnPos"]["face"] = face
-			ofsave["l"] = l
-			ofsave["w"] = w
-			ofsave["L"] = L
-			ofsave["W"] = W
 			if fs.exists("ofsave") then
 				fs.delete("ofsave")
 			end
@@ -401,6 +393,8 @@ function oreFinder()
 				turnLeft()
 				ofsave["left"] = false
 			end
+			w = w + 1
+			ofsave["w"] = w
 			ofsave["returnPos"]["x"] = x
 			ofsave["returnPos"]["z"] = z
 			ofsave["returnPos"]["face"] = face
@@ -410,6 +404,8 @@ function oreFinder()
 			end
 			saveTable(ofsave, "ofsave")
 		end
+		l = l + 1
+		ofsave["l"] = l
 		ofsave["w"] = 1
 		if fs.exists("ofsave") then
 			fs.delete("ofsave")
