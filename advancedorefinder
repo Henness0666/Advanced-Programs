@@ -380,13 +380,13 @@ function runOreFinder(width, length, ignore)
 	if width and length then
 		local ofsave = {
 			["startPos"] = {
-				x = x, y = y, z = z, face = face
+				["x"] = x, ["y"] = y, ["z"] = z, ["face"] = face
 			},
 			["currentPos"] = {
-				x = x, y = y, z = z, face = face
+				["x"] = x, ["y"] = y, ["z"] = z, ["face"] = face
 			},
 			["returnPos"] = {
-				x = x, y = y, z = z, face = face
+				["x"] = x, ["y"] = y, ["z"] = z, ["face"] = face
 			},
 			["ignore"] = ignore,
 			["forward"] = false,
@@ -406,10 +406,10 @@ function runOreFinder(width, length, ignore)
 		moveToPos(ofsave["returnPos"]["x"], ofsave["returnPos"]["y"], ofsave["returnPos"]["z"], ofsave["returnPos"]["face"])
 	end
 	local faceF = ofsave["startPos"]["face"]
-	if ofsave["startPos"]["face"]<=1 then
-		local faceB = ofsave["startPos"]["face"]+2
+	if faceF<=1 then
+		local faceB = faceF+2
 	else 
-		local faceB = ofsave["startPos"]["face"]-2
+		local faceB = faceF-2
 	end
 	parallel.waitForAny(orefinder, skip)
 end
@@ -420,8 +420,8 @@ if #tArgs > 0 then
 	length = tArgs[2]
 	ignore = tArgs[3]
 end
-x = 0
+x = 1
 y = 64
-z = 0
+z = 1
 face = 0
 runOreFinder(width, length, ignore)
