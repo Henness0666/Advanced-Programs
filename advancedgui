@@ -352,13 +352,16 @@ function gui()
 				if menustate == "orefindercontinue" then
 					-- Run OreFinder with with save file
 					shell.run("advancedorefinder")
+					menustate = "main"
 				else
 					-- Run OreFinder with Width and Length
 					shell.run("advancedorefinder", Width, Length, 3)
+					menustate = "main"
 				end
 			elseif mopt[menustate].options[select] == "tunnel" then
 				-- Run Tunnel
 				shell.run("advancedtunnel")
+				menustate = "main"
 			else
 				if mopt[menustate].options[select] == "orefinderpreset" then
 					drawOreFinder()
