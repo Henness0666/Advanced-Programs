@@ -343,11 +343,11 @@ function gui()
 			if mopt[menustate].options[select] == "exit" then
 				break
 			elseif mopt[menustate].options[select] == "orefindercontinue" then
-				if not fs.exists("ofsave") then
-					menustate = "orefindernofile"
-				else
+				if fs.exists("ofsave") then
 					term.clear()
 					shell.run("advancedorefinder")
+				else
+					menustate = "orefindernofile"
 				end
 			elseif mopt[menustate].options[select] == "orefinderrun" then
 				-- Run OreFinder with Length and Width
