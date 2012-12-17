@@ -405,7 +405,7 @@ function oreFinder()
 end
 
 function runOreFinder(width, length, ignore)
-	if width and length then
+	if width and length and ignore then
 		x = 1
 		y = 64
 		z = 1
@@ -442,11 +442,11 @@ function runOreFinder(width, length, ignore)
 		ignore = ofsave["ignore"]
 		setFace(ofsave["returnPos"]["face"])
 	end
-	local faceF = ofsave["startPos"]["face"]
+	faceF = ofsave["startPos"]["face"]
 	if faceF<=1 then
-		local faceB = faceF+2
+		faceB = faceF+2
 	else 
-		local faceB = faceF-2
+		faceB = faceF-2
 	end
 	parallel.waitForAny(oreFinder, skip)
 end
@@ -457,8 +457,8 @@ if #tArgs == 3 then
 	length = tonumber(tArgs[2])
 	ignore = tonumber(tArgs[3])
 	runOreFinder(width, length, ignore)
-elseif fs.exists("ofsave") and #tArgs ~= 3 then
-	print("Usage: " .. shell.getRunningProgram() .. " <width> <length> <ignore>")
-else
+elseif fs.exists("ofsave") and #tArgs == 0 then
 	runOreFinder()
+else
+	print("Usage: " .. shell.getRunningProgram() .. " <width> <length> <ignore>")
 end
