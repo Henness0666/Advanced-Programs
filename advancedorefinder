@@ -308,7 +308,7 @@ function moveToPos(A, B, C, Face)
 end
 
 function checkReturn()
-	if turtle.getFuelLevel() < 2*y+W+L then
+	if turtle.getFuelLevel() < 2 * y + ofsave["W"] + ofsave["L"] then
 		returnStart()
 		for i=ignore+2,16,1 do
 			turtle.select(i)
@@ -320,7 +320,7 @@ function checkReturn()
 				turtle.refuel(1)
 			end
 			sleep(0.1)
-		until turtle.getFuelLevel() > 2*y+W+L
+		until turtle.getFuelLevel() > 2 * y + ofsave["W"] + ofsave["L"]
 		returnLast()
 	elseif turtle.getItemCount(16) > 0 then
 		returnStart()
@@ -333,12 +333,8 @@ function checkReturn()
 end
 
 function oreFinder()
-	l = ofsave["l"]
-	L = ofsave["L"]
-	while l<=L do
-		w = ofsave["w"]
-		W = ofsave["W"]
-		while w<=W do
+	while ofsave["l"] <= ofsave["L"] do
+		while ofsave["w"] <= ofsave["W"] do
 			ofsave["returnPos"]["x"] = x
 			ofsave["returnPos"]["z"] = z
 			ofsave["returnPos"]["face"] = face
