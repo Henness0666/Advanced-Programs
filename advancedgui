@@ -346,9 +346,8 @@ function gui()
 				if not fs.exists("ofsave") then
 					menustate = "orefindernofile"
 				else
-					saveTable = loadTable("ofsave")
 					-- Continue OreFinder with save file
-					shell.run("advancedoredfinder")
+					shell.run("advancedorefinder")
 				end
 			elseif mopt[menustate].options[select] == "orefinderrun" then
 				-- Run OreFinder with Length and Width
