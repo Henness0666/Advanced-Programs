@@ -205,10 +205,10 @@ end
 
 function compareForward(startSlot, endSlot)
 	if not startSlot then
-		startSlot = 2
+		startSlot = 3
 	end
 	if not endSlot then
-		endSlot = ofsave["ignore"] + 1
+		endSlot = ofsave["ignore"] + 2
 	end
 	Ore = true
 	for i=startSlot,endSlot do
@@ -341,6 +341,7 @@ function checkReturn()
 			turtle.select(i)
 			turtle.drop()
 		end
+		turtle.select(1)
 		returnLast()
 	end
 end
@@ -352,6 +353,8 @@ function oreFinder()
 			if math.fmod((ofsave["returnPos"]["x"]+4)-2*(ofsave["returnPos"]["z"]-1), 5) == 0 then
 				findDown()
 				returnLast()
+				turtle.select(2)
+				turtle.placeDown()
 			end
 			if ofsave["l"] == ofsave["length"] then
 				if face == faceF then
@@ -377,6 +380,7 @@ function oreFinder()
 				elseif not moved and not turtle.detect() then
 					repeat turtle.attack() until forward()
 				end
+				digUp()
 				ofsave["returnPos"]["x"] = x
 				ofsave["returnPos"]["z"] = z
 				ofsave["returnPos"]["face"] = face
