@@ -352,7 +352,7 @@ function gui()
 				end
 			elseif mopt[menustate].options[select] == "orefinderrun" then
 				-- Run OreFinder with Length and Width
-				shell.run("advancedoredfinder", Width, Length, 3)
+				shell.run("advancedorefinder", Width, Length, 3)
 			elseif mopt[menustate].options[select] == "tunnel" then
 				shell.run("advancedtunnel")
 			else
