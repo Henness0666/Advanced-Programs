@@ -237,28 +237,22 @@ function moveToPos(A, B, C, face)
 	c=C-z
 	if b<0 then
 		for i=1,math.abs(b) do
-			moved=down()
+			local moved = down()
 			if not moved and turtle.detectDown() then
-				repeat
-					digDown()
-				until down()
+				repeat digDown() until down()
+				local moved = true
 			elseif not moved and not turtle.detectDown() then
-				repeat
-					turtle.attackDown()
-				until down()
+				repeat turtle.attackDown() until down()
 			end
 		end
 	elseif b>0 then
 		for i=1,math.abs(b) do
-			moved=up()
+			local moved = up()
 			if not moved and turtle.detectUp() then
-				repeat
-					digUp()
-				until up()
+				repeat digUp() until up()
+				local moved = true
 			elseif not moved and not turtle.detectUp() then
-				repeat
-					turtle.attackUp()
-				until up()
+				repeat turtle.attackUp() until up()
 			end
 		end
 	end
@@ -269,15 +263,12 @@ function moveToPos(A, B, C, face)
 	end
 	if a ~= 0 then
 		for i=1,math.abs(a) do
-			moved=forward()
+			local moved = forward()
 			if not moved and turtle.detect() then
-				repeat
-					dig()
-				until forward()
+				repeat dig() until forward()
+				local moved = true
 			elseif not moved and not turtle.detect() then
-				repeat
-					turtle.attack()
-				until forward()
+				repeat turtle.attack() until forward()
 			end
 		end
 	end
@@ -288,15 +279,12 @@ function moveToPos(A, B, C, face)
 	end
 	if c ~= 0 then
 		for i=1,math.abs(c) do
-			moved=forward()
+			local moved = forward()
 			if not moved and turtle.detect() then
-				repeat
-					dig()
-				until forward()
+				repeat dig() until forward()
+				local moved = true
 			elseif not moved and not turtle.detect() then
-				repeat
-					turtle.attack()
-				until forward()
+				repeat turtle.attack() until forward()
 			end
 		end
 	end
@@ -354,9 +342,10 @@ function oreFinder()
 				ofsave = {["returnPos"] = {["x"] = x, ["y"] = y, ["z"] = z, ["face"] = face}}
 			end
 			if not ofsave["forward"] then
-				moved=forward()
+				local moved = forward()
 				if not moved and turtle.detect() then
 					repeat dig() until forward()
+					local moved = true
 				elseif not moved and not turtle.detect() then
 					repeat turtle.attack() until forward()
 				end
