@@ -417,6 +417,7 @@ function oreFinder()
 end
 
 function runOreFinder(width, length, ignore)
+	rednet.open("right")
 	x,y,z = gps.locate(5)		
 	if not x and not y and not z then
 		while true do
