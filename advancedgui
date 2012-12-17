@@ -346,7 +346,7 @@ function gui()
 				if not fs.exists("ofsave") then
 					menustate = "orefindernofile"
 				else
-					-- Continue OreFinder with save file
+					term.clear()
 					shell.run("advancedorefinder")
 				end
 			elseif mopt[menustate].options[select] == "orefinderrun" then
