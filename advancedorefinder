@@ -198,13 +198,13 @@ end
 
 function compareForward(startSlot, endSlot)
 	if not startSlot then
-		local startSlot=2
+		startSlot = 2
 	end
 	if not endSlot then
-		local endSlot = ignore + 1
+		endSlot = ignore + 1
 	end
 	Ore = true
-	for i=startSlot,endSlot,1 do
+	for i=startSlot,endSlot do
 		turtle.select(i)
 		if turtle.compare() then
 			Ore = false
