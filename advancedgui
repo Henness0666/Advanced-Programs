@@ -223,7 +223,7 @@ function drawOreFinderPreset()
 		elseif i == 4 then
 			printCentered("|    Time:  " .. string.rep("0", 2-#Hours) .. Hours .. ":" .. string.rep("0", 2-#Minutes) .. Minutes .. string.rep(" ", 15) .. "|", 4 + i)
 		elseif i == 5 then
-			printCentered("|  Ignore:   "..string.rep(" ", 2-#Ingore)..Ignore..string.rep(" ", 17), 4 + i)
+			printCentered("|  Ignore:   "..string.rep(" ", 2-#Ignore)..Ignore..string.rep(" ", 17), 4 + i)
 		elseif i == #presetList-1 then
 			if select == 1 then
 				printCentered("|   [START]   CANCEL    EDIT    |", 4 + i)
@@ -244,7 +244,7 @@ function drawOreFinderNew()
 			while true do
 				term.clear()
 				drawHeader()
-				printCentered("Enter the variables for the excavation.", 4)
+				printCentered("Input variables for the excavation.", 4)
 				printLeft("   Width: ", 6)
 				printLeft("  Length: ", 7)
 				printLeft("  Ignore: ", 9)
@@ -277,7 +277,7 @@ function drawOreFinderEdit()
 				while true do
 					term.clear()
 					drawHeader()
-					printCentered("Enter the variables for " .. presetname .. ".", 4)
+					printCentered("Input variables for " .. presetname .. ".", 4)
 					printLeft("    Name: ", 6)
 					printLeft("   Width: ", 8)
 					printLeft("  Length: ", 10)
