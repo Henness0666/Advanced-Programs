@@ -263,9 +263,9 @@ function moveToPos(A, B, C, face)
 		end
 	end
 	if a<0 then
-		face()
+		face(3)
 	elseif a>0 then
-		face()
+		face(1)
 	end
 	if a ~= 0 then
 		for i=1,math.abs(a) do
@@ -282,9 +282,9 @@ function moveToPos(A, B, C, face)
 		end
 	end
 	if c<0 then
-		face()
+		face(2)
 	elseif c>0 then
-		face()
+		face(0)
 	end
 	if c ~= 0 then
 		for i=1,math.abs(c) do
