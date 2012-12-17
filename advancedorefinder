@@ -196,7 +196,7 @@ function compareForward(startSlot, endSlot)
 		startSlot = 2
 	end
 	if not endSlot then
-		endSlot = ignore + 1
+		endSlot = ofsave["ignore"] + 1
 	end
 	Ore = true
 	for i=startSlot,endSlot do
@@ -310,7 +310,7 @@ end
 function checkReturn()
 	if turtle.getFuelLevel() < 2 * y + ofsave["length"] + ofsave["width"] then
 		returnStart()
-		for i=ignore+2,16,1 do
+		for i = ofsave["ignore"]+2, 16 do
 			turtle.select(i)
 			turtle.drop()
 		end
@@ -324,7 +324,7 @@ function checkReturn()
 		returnLast()
 	elseif turtle.getItemCount(16) > 0 then
 		returnStart()
-		for i=ignore+2,16,1 do
+		for i = ofsave["ignore"]+2, 16 do
 			turtle.select(i)
 			turtle.drop()
 		end
@@ -439,7 +439,6 @@ function runOreFinder(width, length, ignore)
 		y = ofsave["currentPos"]["y"]
 		z = ofsave["currentPos"]["z"]
 		face = ofsave["currentPos"]["face"]
-		ignore = ofsave["ignore"]
 		setFace(ofsave["returnPos"]["face"])
 	end
 	faceF = ofsave["startPos"]["face"]
