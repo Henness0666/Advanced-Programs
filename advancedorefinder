@@ -419,6 +419,8 @@ if #tArgs > 0 then
 	width = tArgs[1]
 	length = tArgs[2]
 	ignore = tArgs[3]
+elseif not fs.exists("ofsave") then
+	print("Usage: " .. shell.getRunningProgram() .. " <width> <length> <ignore>")
 end
 x = 1
 y = 64
