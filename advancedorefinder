@@ -323,7 +323,7 @@ end
 function checkReturn()
 	if turtle.getFuelLevel() < 2 * y + ofsave["length"] + ofsave["width"] then
 		returnStart()
-		for i = ofsave["ignore"]+2, 16 do
+		for i = ofsave["ignore"]+3, 16 do
 			turtle.select(i)
 			turtle.drop()
 		end
@@ -337,7 +337,7 @@ function checkReturn()
 		returnLast()
 	elseif turtle.getItemCount(16) > 0 then
 		returnStart()
-		for i = ofsave["ignore"]+2, 16 do
+		for i = ofsave["ignore"]+3, 16 do
 			turtle.select(i)
 			turtle.drop()
 		end
