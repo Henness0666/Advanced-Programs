@@ -4,6 +4,7 @@
 -- Config
 local version = "v2.0"
 local author = "[by Henness]"
+screenw,screenh = term.getSize()
 
 -- Functions
 function version()
