@@ -16,6 +16,11 @@ function printCentered(str, ypos)
 	term.write(str)
 end
 
+function printLeft(str, ypos)
+	term.setCursorPos(1, ypos)
+	term.write(str)
+end
+
 function drawHeader()
 	printCentered("Advanced OreFinder", 1)
 	printCentered(string.rep("-", screenw), 2) 
