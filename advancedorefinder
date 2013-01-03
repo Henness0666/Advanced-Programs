@@ -71,7 +71,6 @@ function turnLeft(a)
 		else
 			face=face-1
 		end
-		save()
 	end
 	return true
 end
@@ -87,7 +86,6 @@ function turnRight(a)
 		else
 			face=face+1
 		end
-		save()
 	end
 	return true
 end
@@ -432,7 +430,7 @@ function oreFinder()
 	end
 	returnStart()
 	setFace(faceF)
-	fs.delete(ofsave)
+	fs.delete("ofsave")
 end
 
 function runOreFinder(width, length, ignore)
