@@ -178,25 +178,18 @@ function digup() -- Dig up and update the table
 end
 
 function digforward() -- Dig forward and update the table
-	local moved = forward()
+	local moved = moveforward()
 	if not moved and turtle.detect() then
-		repeat dig() until forward()
+		repeat turtle.dig() until moveforward()
 		local moved = true
 	elseif not moved and not turtle.detect() then
-		repeat turtle.attack() until forward()
+		repeat turtle.attack() until moveforward()
 	end
-	moveforward()
 	updatetable()
 end
 
 function moveforward() -- Move forward
-	repeat
-		if turtle.forward()	== true then
-			moved = true
-		else
-			moved = false
-		end
-	until moved == true
+	return turtle.forward()
 end
 
 function largetunnel() -- Mine a tunnel larger then one wide
@@ -366,7 +359,13 @@ createtable()
 -- Mining Loop
 turtle.up()
 while startheight > 0 do
-	turtle.up()
+	local moved = turtle.up()
+	if not moved and turtle.detectUp() then
+		repeat turtle.digUp() until turtle.up()
+		local moved = true
+	elseif not moved and not turtle.detectUp() then
+		repeat turtle.attackUp() until turtle.up()
+	end
 	startheight = startheight - 1
 end
 while lengthVar < length do
