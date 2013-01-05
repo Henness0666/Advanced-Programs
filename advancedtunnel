@@ -1,8 +1,8 @@
 -- Advanced Tunnel by Henness
--- Version 1.3.2 12/16/2012
+-- Version 1.3.4 1/4/2013
 
 -- Config
-Version = "v1.3.1"
+Version = "v1.3.4"
 HeightQuestion = true
 WidthQuestion = true
 LengthQuestion = true
@@ -170,17 +170,20 @@ function digdown() -- Dig down and update the table
 end
 
 function digup() -- Dig up and update the table
-	while turtle.detectUp() == true do
+	while turtle.detectUp() do
 		turtle.digUp()
-		sleep(0.4)
+		sleep(0.5)
 	end
 	updatetable()
 end
 
 function digforward() -- Dig forward and update the table
-	while turtle.detect() == true do
-		turtle.dig()
-		sleep(0.4)
+	local moved = forward()
+	if not moved and turtle.detect() then
+		repeat dig() until forward()
+		local moved = true
+	elseif not moved and not turtle.detect() then
+		repeat turtle.attack() until forward()
 	end
 	moveforward()
 	updatetable()
