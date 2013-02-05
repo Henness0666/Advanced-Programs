@@ -185,7 +185,7 @@ function loadTable(name)
 	return textutils.unserialize(data)
 end
 
-local function moveDown(h)
+function moveDown(h)
 	while not loc.movey(h) do
 		if turtle.detectDown() then
 			turtle.digDown()
@@ -199,7 +199,7 @@ local function moveDown(h)
 	return true
 end
 
-local function compareForward(a, b)
+function compareForward(a, b)
 	loc.pause()
 	for i=a,b do
 		turtle.select(i)
@@ -210,7 +210,7 @@ local function compareForward(a, b)
 	return true
 end
 
-local function findDown(d)
+function findDown(d)
 	if not d then d = loc.y end
 	local h = loc.y - d
 	while loc.y ~= h do
@@ -231,7 +231,7 @@ local function findDown(d)
 	end
 end
 
-local function refuel(ammount)
+function refuel(ammount)
 	if turtle.getFuelLevel() == "unlimited" then
 		return true
 	end
@@ -258,7 +258,7 @@ local function refuel(ammount)
 	return true
 end
 
-local function unload()
+function unload()
 	for n=1,16 do
 		loc.pause()
 		if turtle.getItemCount(n) > 0 then
@@ -275,7 +275,7 @@ local function unload()
 	turtle.select(1)
 end
 
-local function space()
+function space()
 	for n=1,16 do
 		if turtle.getItemCount(n) == 0 then
 			return true
@@ -284,7 +284,7 @@ local function space()
 	return false
 end
 
-local function returnToChest()
+function returnToChest()
 	local returnPos = {x = loc.x, y = loc.y, z = loc.z, facing = loc.facing}
 	local fuelNeeded = loc.distanceToPos(_tSave.startPos) * 2 + 1
 	loc.moveToPos(_tSave.startPos)
@@ -301,7 +301,7 @@ local function returnToChest()
 	loc.moveToPos(returnPos)
 end
 
-local function forward()
+function forward()
 	if not space() then
 		returnToChest()
 	end
@@ -315,7 +315,7 @@ local function forward()
 	end
 end
 
-local function oreFinder()
+function oreFinder()
 	loc.moveToPos(_tSave.returnPos)
 	while _tSave.w <= _tSave.width do
 		while _tSave.l <= _tSave.length do
