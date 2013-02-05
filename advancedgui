@@ -1,5 +1,5 @@
 -- Advanced GUI by Henness
--- Version 1.0 12/16/2012
+-- Version 1.1 2/5/2013
 
 -- Config
 screenw,screenh = term.getSize()
@@ -310,7 +310,6 @@ function drawOreFinderEdit()
 	preset[presetstate].values[1] = tostring(Width)
 	preset[presetstate].values[2] = tostring(Length)
 	preset[presetstate].values[6] = tostring(Ignore)
-	--Calculate Time
 	saveTable(preset, "ofpreset")
 	drawOreFinder()
 	menustate = "orefinderpreset"
@@ -369,7 +368,7 @@ function gui()
 			if mopt[menustate].options[select] == "exit" then
 				break
 			elseif mopt[menustate].options[select] == "orefindercontinue" then
-				if fs.exists("ofsave") then
+				if fs.exists("orefinder.save") then
 					menustate = "orefindercontinue"
 				else
 					menustate = "orefindernofile"
@@ -377,11 +376,20 @@ function gui()
 			elseif mopt[menustate].options[select] == "orefinderrun" then
 				if menustate == "orefindercontinue" then
 					-- Run OreFinder with with save file
-					shell.run("advancedorefinder")
+					shell.run("advancedorefinder", "orefinder.save")
 					menustate = "orefinder"
 				else
 					-- Run OreFinder with Width and Length
-					shell.run("advancedorefinder", Width, Length, Ignore)
+					local _tSave = {
+						w = 1,
+						l = 1,
+						width = Width,
+						length = Length,
+						ignore = Ignore,
+						safemode = true
+					}
+					saveTable(_tSave, "orefinder.save")
+					shell.run("advancedorefinder", "orefinder.save")
 					menustate = "orefinder"
 				end
 			elseif mopt[menustate].options[select] == "tunnel" then
