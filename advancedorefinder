@@ -504,30 +504,26 @@ end
 
 local function locate()
 	local x,y,z,facing
-	if rednet.open("right") then
-		printCentered("Receiving coordinates from host...", 4)
-		x,y,z = gps.locate(3)
-		if x and y and z then
-			forward()
-			local tmpx,tmpy,tmpz = gps.locate(3)
-			if tmpx > x then
-				faceing = 3
-			elseif tmpx < x then
-				faceing = 1
-			elseif tmpz > z then
-				faceing = 0
-			elseif tmpz < z then
-				facing = 2
-			end
-			return x,y,z,facing
-		else
-			printCentered("Unable to get GPS cords.  Please,", 3)
-			printCentered("enter the turtles cords manually.", 4)
+	rednet.open("right")
+	x,y,z = gps.locate(3)
+	if x and y and z then
+		forward()
+		local tmpx,tmpy,tmpz = gps.locate(3)
+		if tmpx > x then
+			faceing = 3
+		elseif tmpx < x then
+			faceing = 1
+		elseif tmpz > z then
+			faceing = 0
+		elseif tmpz < z then
+			facing = 2
 		end
+		return x,y,z,facing
 	else
-		printCentered("No wireless modem found, please", 3)
-		printCentered("enter the cords manualy.", 4)
+		printCentered("Unable to get GPS cords.  Please,", 3)
+		printCentered("enter the turtles cords manually.", 4)
 	end
+
 	printLeft("     x: ", 6)
 	printLeft("     y: ", 7)
 	printLeft("     z: ", 8)
