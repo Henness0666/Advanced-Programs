@@ -1,9 +1,9 @@
 -- Advanced Ore Finder by Henness
--- Version 3.0 2/5/2013
+-- Version 3.1 1/12/2014
 
 -- Config
 local program = "Advanced Orefinder"
-local version = "v3.0"
+local version = "v3.1"
 local author = "Henness"
 screenw,screenh = term.getSize()
 
@@ -57,6 +57,16 @@ loc = {
 		if turtle.forward() then
 			local axis, unit = loc.getAxisForFacing()
 			loc[axis] = loc[axis] + unit
+			return true
+		end
+		return false
+	end,
+	
+	moveBack = function()
+		loc.pause()
+		if turtle.back() then
+			local axis, unit = loc.getAxisForFacing()
+			loc[axis] = loc[axis] - unit
 			return true
 		end
 		return false
@@ -502,23 +512,36 @@ function readLines( sLines, _sReplaceChar )
 	return sLine
 end
 
+local function findModem()
+  for _, v in pairs( rs.getSides() ) do
+        if peripheral.isPresent( v ) and peripheral.getType( v ) == "modem" then
+          return true, v
+        end
+  end
+  return false, nil
+end
+
 local function locate()
 	local x,y,z,facing
-	if rednet.open("right") then
+	local exist, side = findModem()
+	if exist then
+		rednet.open(side)
 		printCentered("Receiving coordinates from host...", 4)
 		x,y,z = gps.locate(3)
 		if x and y and z then
 			forward()
 			local tmpx,tmpy,tmpz = gps.locate(3)
 			if tmpx > x then
-				faceing = 3
+				facing = 3
 			elseif tmpx < x then
-				faceing = 1
+				facing = 1
 			elseif tmpz > z then
-				faceing = 0
+				facing = 0
 			elseif tmpz < z then
 				facing = 2
 			end
+			printCentered("At:"..x.."/"..y.."/"..z.."/"..facing,3)
+			loc.moveBack()
 			return x,y,z,facing
 		else
 			printCentered("Unable to get GPS cords.  Please,", 3)

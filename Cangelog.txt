@@ -1,0 +1,63 @@
+----ADVANCED OREFINDER----
+Version 3.1
+	Fixed GPS locating 
+Version 3.0
+	Complete menu overhaul
+Version 2.0
+    Complete code rewrite.
+        Added Session persistence
+        Added Presets
+        Added GPS locating
+Version 1.1
+    Fixed typo on line 129 "turtle.Down()" changed to "turtle.down()"
+Version 1.0
+    Initial release
+	
+
+----ADVANCED TUNNEL----
+Version 1.3.1
+    Added Player/Mob detection
+    Fixes
+        -Missing "then" on line 837
+
+Version 1.3
+    Added an advanced lighting AI
+    Shortened code for the intro
+    Improved gravel/sand detection
+    Improved and shortened the place torch function
+    Improved and shortened the code for returning to the start
+    Fixes
+        -Turtle doesn't place torches in tunnels with a height of 3n. -fixed
+        -Turtle doesn't place torches in tunnels with a height of 2+3n. -fixed
+
+Version 1.2.2
+    Improved code for updating the table
+    Shortened and organized code
+    Fixes
+        -progress bar being over 100% when finished -fixed
+
+Version 1.2.1
+    Fixes
+        -Infinite length tunnels -fixed
+        -Divide by zero when tunnel is Infinite -fixed
+
+Version 1.2
+    Added a table for stats
+    Added a progress bar
+    Orginized code into some functions
+        -function to create a table
+        -function to update the table
+        -function to place torches
+        -function to dig down
+        -function to dig up
+        -function to dig forward
+
+Version 1.1
+    Added version function
+    Orginized code a little and renamed some variables
+    Fixes
+        -Error when not placing torches - fixed
+        -Turtle mines incorectly when tunnel height is grater than six - fixed
+
+Version 1.0
+    Initial release
