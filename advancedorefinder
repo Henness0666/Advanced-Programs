@@ -5,6 +5,7 @@
 local program = "Advanced Orefinder"
 local version = "v3.1"
 local author = "Henness"
+local tSave = {}
 screenw,screenh = term.getSize()
 
 -- Functions
@@ -824,7 +825,6 @@ local function runOreFinder(_sSave)
 end
 
 local tArgs = { ... }
-local tSave = {}
 if turtle.getFuelLevel() > 0 or turtle.getFuelLevel() == "unlimited" then
 	if #tArgs == 1 then
 		_sFile = tostring(tArgs[1])
