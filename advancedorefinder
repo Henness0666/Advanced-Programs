@@ -14,6 +14,7 @@ screenw,screenh = term.getSize()
 	for his killer program. If you would like to see his program
 	you can download it from: http://pastebin.com/UCES36jD
 ]]
+
 local loc = {}
 loc = {
 	paused = false,
@@ -823,6 +824,8 @@ local function runOreFinder(_sSave)
 end
 
 local tArgs = { ... }
+local _sFile
+local tSave = {}
 if turtle.getFuelLevel() > 0 or turtle.getFuelLevel() == "unlimited" then
 	if #tArgs == 1 then
 		_sFile = tostring(tArgs[1])
