@@ -228,7 +228,7 @@ function findDown(d)
 			break
 		end
 		for j=1,4 do
-			if compareForward(1, _tSave.ignore) then
+			if compareForward(1, tSave.ignore) then
 				if not space() then
 					returnToChest()
 				end
@@ -245,9 +245,9 @@ function refuel(ammount)
 	if turtle.getFuelLevel() == "unlimited" then
 		return true
 	end
-	local needed = ammount or loc.distanceToPos(_tSave.startPos) * 2 + 1
+	local needed = ammount or loc.distanceToPos(tSave.startPos) * 2 + 1
 	if turtle.getFuelLevel() < needed then
-		for n=_tSave.ignore+1,16 do
+		for n=tSave.ignore+1,16 do
 			loc.pause()
 			if turtle.getItemCount(n) > 0 then
 				turtle.select(n)
@@ -273,8 +273,8 @@ function unload()
 		loc.pause()
 		if turtle.getItemCount(n) > 0 then
 			turtle.select(n)
-			if n <= _tSave.ignore then
-				if (not _tSave.safemode  and n == 1) or n > 1 then
+			if n <= tSave.ignore then
+				if (not tSave.safemode  and n == 1) or n > 1 then
 					turtle.drop(turtle.getItemCount(n) - 1)
 				end
 			else
@@ -296,8 +296,8 @@ end
 
 function returnToChest()
 	local returnPos = {x = loc.x, y = loc.y, z = loc.z, facing = loc.facing}
-	local fuelNeeded = loc.distanceToPos(_tSave.startPos) * 2 + 1
-	loc.moveToPos(_tSave.startPos)
+	local fuelNeeded = loc.distanceToPos(tSave.startPos) * 2 + 1
+	loc.moveToPos(tSave.startPos)
 	loc.face((loc.facing + 2) % 4)
 	if not refuel(fuelNeeded) then
 		unload()
@@ -326,27 +326,28 @@ function forward()
 end
 
 function oreFinder()
-	loc.moveToPos(_tSave.returnPos)
-	while _tSave.w <= _tSave.width do
-		while _tSave.l <= _tSave.length do
+	loc.moveToPos(tSave.returnPos)
+	while tSave.w <= tSave.width do
+		while tSave.l <= tSave.length do
 			if not refuel() or not space() then
 				returnToChest()
 			end
 			if math.fmod((loc.x + 4) - (loc.z - 1) * 2, 5) == 0 then
-				_tSave.returnPos = {x = loc.x, y = loc.y, z = loc.z, facing = loc.facing}
-				saveTable( _tSave, _sFile )
+				tSave.returnPos = {x = loc.x, y = loc.y, z = loc.z, facing = loc.facing}
+				saveTable( tSave, _sFile )
 				findDown()
-				loc.moveToPos(_tSave.returnPos)
-				if _tSave.safemode then
+				loc.moveToPos(tSave.returnPos)
+				if tSave.safemode then
 					turtle.select(1)
 					turtle.placeDown()
 				end
 			end
+			turtle.select(1)
 			turtle.digUp()
-			if _tSave.l ~= _tSave.length then
+			if tSave.l ~= tSave.length then
 				forward()
-			elseif _tSave.l == _tSave.length and _tSave.w ~= _tSave.width then
-				if loc.facing == _tSave.startPos.facing then
+			elseif tSave.l == tSave.length and tSave.w ~= tSave.width then
+				if loc.facing == tSave.startPos.facing then
 					loc.turnRight()
 					forward()
 					loc.turnRight()
@@ -356,12 +357,12 @@ function oreFinder()
 					loc.turnLeft()
 				end
 			end
-			_tSave.l = _tSave.l + 1
+			tSave.l = tSave.l + 1
 		end
-		_tSave.w = _tSave.w + 1
-		_tSave.l = 1
+		tSave.w = tSave.w + 1
+		tSave.l = 1
 	end
-	loc.moveToPos(_tSave.startPos)
+	loc.moveToPos(tSave.startPos)
 	returnToChest()
 	fs.delete(_sFile)
 	return true
@@ -712,8 +713,8 @@ local function drawResultMenu()
 end
 
 local function runOreFinder(_sSave)
-	_tSave = {}
-	_tSave = loadTable(_sSave)
+	tSave = nil
+	tSave = loadTable(_sSave)
 	local menustate = "gpsmenu"
 	local function rungui()
 		local mopt = {
@@ -773,7 +774,7 @@ local function runOreFinder(_sSave)
 					end
 				elseif param == keys.enter then
 					if mopt[menustate].options[select] == "save" or mopt[menustate].options[select] == "save_exit" then
-						saveTable(_tSave, _sSave)
+						saveTable(tSave, _sSave)
 						if mopt[menustate].options[select] == "save_exit" then
 							break
 						end
@@ -788,7 +789,7 @@ local function runOreFinder(_sSave)
 						end
 					elseif mopt[menustate].options[select] == "refuel" then
 						if turtle.getFuelLevel() ~= "unlimited" then
-							for i=_tSave.ignore+1,16 do
+							for i=tSave.ignore+1,16 do
 								if turtle.getItemCount(i) > 0 then
 									turtle.select(i)
 									turtle.refuel(turtle.getItemCount(i))
@@ -809,11 +810,11 @@ local function runOreFinder(_sSave)
 	end
 	rungui()
 	menustate = "main"
-	if not _tSave.startPos then
-		_tSave.startPos = {x = loc.x, y = loc.y, z = loc.z, facing = loc.facing}
-		_tSave.returnPos = {x = loc.x, y = loc.y, z = loc.z, facing = loc.facing}
+	if not tSave.startPos then
+		tSave.startPos = {x = loc.x, y = loc.y, z = loc.z, facing = loc.facing}
+		tSave.returnPos = {x = loc.x, y = loc.y, z = loc.z, facing = loc.facing}
 	end
-	saveTable(_tSave, _sFile)
+	saveTable(tSave, _sFile)
 	parallel.waitForAny(oreFinder, rungui)
 	if not fs.exists(_sFile) then
 		menustate = "resultmenu"
@@ -824,7 +825,7 @@ end
 local tArgs = { ... }
 if turtle.getFuelLevel() > 0 or turtle.getFuelLevel() == "unlimited" then
 	if #tArgs == 1 then
-		_sFile = tostring(tArgs[1])
+		local _sFile = tostring(tArgs[1])
 		if fs.exists(_sFile) then
 			runOreFinder(_sFile)
 			term.setCursorPos(1,1)
