@@ -6,6 +6,9 @@ local program = "Advanced Orefinder"
 local version = "v3.1"
 local author = "Henness"
 local tSave = {}
+
+local ores_mined, tCordsInput, select, screenw, screenh, fuel_level, _sFile
+
 screenw,screenh = term.getSize()
 
 -- Functions
