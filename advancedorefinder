@@ -515,7 +515,7 @@ function readLines( sLines, _sReplaceChar )
 		end
 	end
 	term.setCursorBlink( false )
-	return sLine
+	return sLines
 end
 
 local function findModem()
@@ -838,7 +838,9 @@ if turtle.getFuelLevel() > 0 or turtle.getFuelLevel() == "unlimited" then
 		end
 	else
 		print("Usage: " .. shell.getRunningProgram() .. " <save file>")
+		return "Usage: " .. shell.getRunningProgram() .. " <save file>"
 	end
 else
 	print("Error, there must be fuel in the turtle!")
+	return "Error, there must be fuel in the turtle!"
 end
