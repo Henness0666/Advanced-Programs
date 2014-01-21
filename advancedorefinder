@@ -837,10 +837,8 @@ if turtle.getFuelLevel() > 0 or turtle.getFuelLevel() == "unlimited" then
 			term.clear()
 		end
 	else
-		print("Usage: " .. shell.getRunningProgram() .. " <save file>")
-		return false, "Usage: " .. shell.getRunningProgram() .. " <save file>"
+		error("Usage: " .. shell.getRunningProgram() .. " <save file>")
 	end
 else
-	print("Error, there must be fuel in the turtle!")
-	return false, "Error, there must be fuel in the turtle!"
+	error("Error, there must be fuel in the turtle!")
 end
